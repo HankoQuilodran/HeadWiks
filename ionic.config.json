@@ -1,0 +1,7 @@
+{
+  "name": "HeadWiks",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
