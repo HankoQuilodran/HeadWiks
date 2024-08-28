@@ -1,0 +1,48 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Register</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <h3 style="text-decoration: underline;">Email </h3>
+  <ion-item>
+    <ion-input label="Email" labelPlacement="stacked" [clearInput]="true" placeholder="user@email.com" [(ngModel)]="correo"></ion-input>
+  </ion-item>
+
+  <br>
+  <h3 style="text-decoration: underline;">Username requirements: </h3>
+  <p>-Between 5 and 20 characters</p>
+  <ion-item>
+    <ion-input label="Username (5-20 characters)" labelPlacement="stacked" [clearInput]="true" placeholder="Username" [(ngModel)]="usuario"></ion-input>
+  </ion-item>
+
+    <h3 style="text-decoration: underline;">Password requirements: </h3>
+    <p> -Between 6 and 25 characters <br>
+     -Use of Uppercase and Lowecase characters <br>
+     -At least 1 number <br>
+     -At least 1 special character ( * - ! ' + $ # ?)
+    </p>
+  <ion-item>
+    <ion-input label="Password" labelPlacement="stacked" [clearInput]="true" type="password" placeholder="User Password"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-input label="Password Confirmation" labelPlacement="stacked" [clearInput]="true" type="password" placeholder="User Password"></ion-input>
+  </ion-item>
+  <br>
+
+  <ion-button  size="large" class="center botonVerde" color="blue" (click)="irPagina()">
+    Register
+   </ion-button>
+
+
+</ion-content>

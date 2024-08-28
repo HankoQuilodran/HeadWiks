@@ -1,0 +1,36 @@
+ion-toolbar {
+  color: #000000;
+  --background: #7edc52;
+}
+
+ion-title.title-large {
+  color: #c897d8;
+  font-size: 30px;
+}
+
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+}
+
+.botonVerde {
+  color: black;
+  background-color: #7edc52;
+}
+
+.logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.titulo {
+  font-style: italic;
+  font-weight: bold;
+  font-size: large;
+}
+
