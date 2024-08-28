@@ -1,6 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>account-forms</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Editing Account</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -10,4 +13,41 @@
       <ion-title size="large">account-forms</ion-title>
     </ion-toolbar>
   </ion-header>
+
+
+  <h3 style="text-decoration: underline;">Title </h3>
+    <ion-item>
+      <ion-input labelPlacement="stacked" [clearInput]="true" placeholder="Title of entry" [(ngModel)]="correo"></ion-input>
+    </ion-item>
+  
+    <br>
+    <h3 style="text-decoration: underline;">Tags </h3>
+    <p>Examples: animals, curiosity, informative, ancient_history</p>
+    <ion-item>
+      <ion-input labelPlacement="stacked"  placeholder="Tags" [(ngModel)]="usuario"></ion-input>
+    </ion-item>
+  
+    <h3 style="text-decoration: underline;">Entry Content </h3>
+    <ion-item>
+      <ion-input labelPlacement="stacked"  placeholder="Entry content"></ion-input>
+    </ion-item>
+    <br>
+
+    <h3 style="text-decoration: underline;">Sources </h3>
+    <ion-item>
+      <ion-input labelPlacement="stacked"  placeholder="Sources"></ion-input>
+    </ion-item>
+    <br>
+  
+    <ion-button  size="large" class="center botonVerde" color="blue" (click)="irPagina()">
+      Finish Entry
+    </ion-button>
+
+
+
+
+
+
+
+
 </ion-content>
