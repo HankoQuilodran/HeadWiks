@@ -1,3 +1,33 @@
 ion-toolbar {
     color: #7edc52;
 }
+
+.botonVerde {
+    color: black;
+    background-color: #7edc52;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+h3 {
+    color: #7edc52;
+    text-decoration: underline;
+    text-align: center;
+}
+
+.centerText {
+    display: block;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+.profile {
+    width: 50%;
+}

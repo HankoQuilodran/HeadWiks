@@ -14,22 +14,23 @@
     </ion-toolbar>
   </ion-header>
 
+  <h3>Profile Picture </h3>
+  <img src="/assets/PlaceHolders/profile_PH.jpg" alt="perfil">
 
-  <h3 style="text-decoration: underline;">Title </h3>
+  <ion-button  size="large" class="center botonVerde" color="blue" >
+    Change
+  </ion-button>
+
+
+
+    <h3>Description </h3>
     <ion-item>
-      <ion-input labelPlacement="stacked" [clearInput]="true" placeholder="Title of entry" [(ngModel)]="correo"></ion-input>
+      <ion-input labelPlacement="stacked" [clearInput]="true" placeholder="Brief Description of you" [(ngModel)]="correo"></ion-input>
     </ion-item>
   
-    <br>
-    <h3 style="text-decoration: underline;">Tags </h3>
-    <p>Examples: animals, curiosity, informative, ancient_history</p>
+    <h3 style="text-decoration: underline;">Themes of Interest </h3>
     <ion-item>
-      <ion-input labelPlacement="stacked"  placeholder="Tags" [(ngModel)]="usuario"></ion-input>
-    </ion-item>
-  
-    <h3 style="text-decoration: underline;">Entry Content </h3>
-    <ion-item>
-      <ion-input labelPlacement="stacked"  placeholder="Entry content"></ion-input>
+      <ion-input labelPlacement="stacked"  placeholder="Interests"></ion-input>
     </ion-item>
     <br>
 
@@ -39,8 +40,11 @@
     </ion-item>
     <br>
   
+
+
+
     <ion-button  size="large" class="center botonVerde" color="blue" (click)="irPagina()">
-      Finish Entry
+      Finish
     </ion-button>
 
 

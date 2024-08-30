@@ -19,25 +19,44 @@
     
     <h3 style="text-decoration: underline;">Title </h3>
     <ion-item>
-      <ion-input labelPlacement="stacked" [clearInput]="true" placeholder="Title of entry" [(ngModel)]="correo"></ion-input>
+      <ion-input labelPlacement="stacked" [clearInput]="true" placeholder="Title of yout Entry" [counter]="true" maxlength="25" [(ngModel)]="correo"></ion-input>
     </ion-item>
   
     <br>
     <h3 style="text-decoration: underline;">Tags </h3>
     <p>Examples: animals, curiosity, informative, ancient_history</p>
     <ion-item>
-      <ion-input labelPlacement="stacked"  placeholder="Tags" [(ngModel)]="usuario"></ion-input>
+      <ion-input labelPlacement="stacked"  placeholder="Tags related to the Entry" [(ngModel)]="usuario"></ion-input>
     </ion-item>
-  
+
+    <br>
+    <h3 style="text-decoration: underline;">Briefing </h3>
+    <ion-item>
+      <ion-textarea
+        placeholder="Briefing of your Entry"
+        [autoGrow]="true"
+      >
+      </ion-textarea>
+    </ion-item>
+
+    <br>
     <h3 style="text-decoration: underline;">Entry Content </h3>
     <ion-item>
-      <ion-input labelPlacement="stacked"  placeholder="Entry content"></ion-input>
+      <ion-textarea
+        placeholder="Entry Content"
+        [autoGrow]="true"
+      >
+      </ion-textarea>
     </ion-item>
     <br>
 
     <h3 style="text-decoration: underline;">Sources </h3>
     <ion-item>
-      <ion-input labelPlacement="stacked"  placeholder="Sources"></ion-input>
+      <ion-textarea
+        placeholder="Sources"
+        [autoGrow]="true"
+      >
+      </ion-textarea>
     </ion-item>
     <br>
   

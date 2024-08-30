@@ -27,7 +27,7 @@ export class AccountFormsPage implements OnInit {
       }
     }
 
-    this.router.navigate(['/account-forms'], navigationextras);
+    this.router.navigate(['/account'], navigationextras);
   }
 
 
