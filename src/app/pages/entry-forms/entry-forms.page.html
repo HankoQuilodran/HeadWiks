@@ -19,20 +19,27 @@
     
     <h3 style="text-decoration: underline;">Title </h3>
     <ion-item>
-      <ion-input labelPlacement="stacked" [clearInput]="true" placeholder="Title of yout Entry" [counter]="true" maxlength="25" [(ngModel)]="correo"></ion-input>
+      <ion-input color="succes" labelPlacement="stacked" [clearInput]="true" placeholder="Title of yout Entry" [counter]="true" maxlength="25" [(ngModel)]="correo"></ion-input>
     </ion-item>
+    <br>
+    <h3 style="text-decoration: underline;">Image (optional) </h3>
+    <img src="https://ionicframework.com/docs/img/demos/card-media.png" alt="Image">
+    <ion-button  size="large" class="center botonVerde" color="blue">
+      Choose Image
+    </ion-button>
   
     <br>
     <h3 style="text-decoration: underline;">Tags </h3>
-    <p>Examples: animals, curiosity, informative, ancient_history</p>
+    <p>Examples: animals - curiosity - informative - ancient_history</p>
     <ion-item>
-      <ion-input labelPlacement="stacked"  placeholder="Tags related to the Entry" [(ngModel)]="usuario"></ion-input>
+      <ion-input color="succes" labelPlacement="stacked"  placeholder="Tags related to the Entry" [(ngModel)]="usuario"></ion-input>
     </ion-item>
 
     <br>
     <h3 style="text-decoration: underline;">Briefing </h3>
+    <p>This will appear as part of the Thumbnail of the Entry on the Main Page</p>
     <ion-item>
-      <ion-textarea
+      <ion-textarea color="succes"
         placeholder="Briefing of your Entry"
         [autoGrow]="true"
       >
@@ -41,8 +48,9 @@
 
     <br>
     <h3 style="text-decoration: underline;">Entry Content </h3>
+    <p>Separate your important paragraphs with <br> " // " symbols </p>
     <ion-item>
-      <ion-textarea
+      <ion-textarea color="succes"
         placeholder="Entry Content"
         [autoGrow]="true"
       >
@@ -51,8 +59,9 @@
     <br>
 
     <h3 style="text-decoration: underline;">Sources </h3>
+    <p>Separate your different sources with <br> " // " symbols </p>
     <ion-item>
-      <ion-textarea
+      <ion-textarea color="succes"
         placeholder="Sources"
         [autoGrow]="true"
       >
@@ -60,11 +69,12 @@
     </ion-item>
     <br>
   
+
     <ion-button  size="large" class="center botonVerde" color="blue" (click)="irPagina()">
-      Finish Entry
+      Entry Preview
     </ion-button>
-  
-  
+    
+    
   
   
   

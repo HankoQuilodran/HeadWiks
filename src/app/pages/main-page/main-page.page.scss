@@ -1,9 +1,14 @@
 ion-toolbar {
     color: #7edc52;
+    font-family: monospace;
 }
 
 h5 {
     color: #7edc52;
+}
+
+p {
+    font-family: monospace;
 }
 
 .greenText {
@@ -12,4 +17,9 @@ h5 {
 
 .cardImage {
     aspect-ratio: 16/9
+}
+
+.title {
+    font-family: serif;
+    font-weight: bold;
 }

@@ -14,26 +14,26 @@
     </ion-toolbar>
   </ion-header>
 
-  <h3 style="text-decoration: underline;">Email </h3>
+  <h3 class="centerText">Email </h3>
   <ion-item>
     <ion-input [clearInput]="true" helperText="Enter a valid email" placeholder="user@email.com" type="email" aria-required="true" [(ngModel)]="correo"></ion-input>
   </ion-item>
 
   <br>
-  <h3 style="text-decoration: underline;">Username requirements: </h3>
+  <h3 class="centerText">Username </h3>
   <p>-Between 5 and 20 characters</p>
   <ion-item>
     <ion-input [clearInput]="true" helperText="Avoid unprofesional usernames" placeholder="Username" [counter]="true" maxlength="20" [(ngModel)]="usuario"></ion-input>
   </ion-item>
 
-    <h3 style="text-decoration: underline;">Password requirements: </h3>
+    <h3 class="centerText">Password </h3>
     <p>
      -Use of Uppercase and Lowecase characters <br>
      -At least 1 number <br>
      -At least 1 special character ( * - ! ' + $ # ?)
     </p>
   <ion-item>
-    <ion-input  [clearInput]="true" helperText="Use a strong password" type="password" placeholder="User Password"></ion-input>
+    <ion-input  [clearInput]="true" helperText="Use a strong password" color="success" type="password" placeholder="User Password"></ion-input>
   </ion-item>
   <ion-item>
     <ion-input  [clearInput]="true" helperText="Make it easy to remember" color="success"  type="password" placeholder="User Password Confirmation"></ion-input>

@@ -12,4 +12,8 @@ export class EntriesPage implements OnInit {
   ngOnInit() {
   }
 
+  
+
+
+
 }

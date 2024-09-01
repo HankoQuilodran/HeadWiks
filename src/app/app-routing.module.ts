@@ -42,6 +42,14 @@ const routes: Routes = [
   {
     path: 'account-forms',
     loadChildren: () => import('./pages/account-forms/account-forms.module').then( m => m.AccountFormsPageModule)
+  },
+  {
+    path: 'annotation-forms',
+    loadChildren: () => import('./pages/annotation-forms/annotation-forms.module').then( m => m.AnnotationFormsPageModule)
+  },
+  {
+    path: 'entry-placeholder',
+    loadChildren: () => import('./pages/entry-placeholder/entry-placeholder.module').then( m => m.EntryPlaceholderPageModule)
   }
 ];
 

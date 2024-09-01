@@ -3,6 +3,10 @@ ion-toolbar {
     --background: #7edc52;
 }
 
+h3 {
+    font-family: serif;
+    text-decoration: underline;
+}
 
 .center {
     display: block;
@@ -15,6 +19,14 @@ ion-toolbar {
     color: black;
     background-color: #7edc52;
 }
+
+.centerText {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
 
 p {
     color: #47802d;
