@@ -7,9 +7,36 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EntryPlaceholderPage implements OnInit {
 
+
+  like:boolean=false;
+  follow:boolean=false;
+
   constructor() { }
 
   ngOnInit() {
   }
+
+  likeEntry(){
+    if(!this.like) {
+      this.like = true;
+    }
+    else{
+      this.like = false;
+    }
+  }
+
+  followEntry(){
+    if(!this.follow) {
+      this.follow = true;
+    }
+    else{
+      this.follow = false;
+    }
+  }
+
+
+
+
+
 
 }

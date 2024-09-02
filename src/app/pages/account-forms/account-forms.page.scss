@@ -5,7 +5,13 @@ ion-toolbar {
 
 h3 {
     color: #7edc52;
+    text-decoration: underline;
+    text-align: center;
     font-family: serif;
+}
+
+p {
+    color: #47802d;
 }
 
 .botonVerde {
@@ -18,12 +24,6 @@ h3 {
     margin-left: auto;
     margin-right: auto;
     width: 100%;
-}
-
-h3 {
-    color: #7edc52;
-    text-decoration: underline;
-    text-align: center;
 }
 
 .centerText {

@@ -21,10 +21,10 @@
     <ion-input label="Email" labelPlacement="stacked" [clearInput]="true" placeholder="User Email" [(ngModel)]="correo"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-input label="Password" labelPlacement="stacked" [clearInput]="true" type="password" placeholder="User Password"></ion-input>
+    <ion-input label="Password" labelPlacement="stacked" [clearInput]="true" type="password" placeholder="User Password" [(ngModel)]="contra"></ion-input>
   </ion-item>
   <br>
- <ion-button  size="large" class="center botonVerde" color="blue" (click)="irPagina()">
+ <ion-button  size="large" class="center botonVerde" color="blue" (click)="validarDatos()">
   Log in
  </ion-button>
  <br>
@@ -34,6 +34,10 @@
  <ion-button  size="small" fill="clear" class="center" style="text-decoration: underline;">
   Password Recover
  </ion-button>
+
+ <h1> {{usuarioReg}}</h1>
+ <h1> {{correoReg}}</h1>
+ <h1> {{contraReg}}</h1>
 
 
 

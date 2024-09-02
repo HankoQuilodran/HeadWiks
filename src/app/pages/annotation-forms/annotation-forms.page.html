@@ -1,13 +1,43 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>annotation-forms</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Write Annnotation</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">annotation-forms</ion-title>
+      <ion-title size="large">Write Annotation</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <h3 class="centerText">Title </h3>
+  <ion-item>
+    <ion-input [clearInput]="true" helperText="Title" placeholder="Anotation Title" [counter]="true" maxlength="20" aria-required="true"></ion-input>
+  </ion-item>
+
+  <br>
+  <h3 class="centerText">Annotation Content </h3>
+  <ion-item>
+    <ion-textarea color="succes"
+      placeholder="Content"
+      [autoGrow]="true"
+      [counter]="true" maxlength="300">
+    </ion-textarea>
+  </ion-item>
+
+  <br>
+
+  <ion-button  size="large" class="center botonVerde" color="blue" [routerLink]="['/entries']">
+    Submit
+  </ion-button>
+
+
+
+
 </ion-content>
+
+

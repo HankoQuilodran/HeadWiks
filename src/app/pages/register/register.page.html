@@ -27,20 +27,20 @@
   </ion-item>
 
     <h3 class="centerText">Password </h3>
-    <p>
+    <p>-At least 8 characters long <br>
      -Use of Uppercase and Lowecase characters <br>
      -At least 1 number <br>
      -At least 1 special character ( * - ! ' + $ # ?)
     </p>
   <ion-item>
-    <ion-input  [clearInput]="true" helperText="Use a strong password" color="success" type="password" placeholder="User Password"></ion-input>
+    <ion-input  [clearInput]="true" helperText="Use a strong password" color="success" type="password" placeholder="User Password" [(ngModel)]="contra1"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-input  [clearInput]="true" helperText="Make it easy to remember" color="success"  type="password" placeholder="User Password Confirmation"></ion-input>
+    <ion-input  [clearInput]="true" helperText="Make it easy to remember" color="success"  type="password" placeholder="User Password Confirmation" [(ngModel)]="contra2"></ion-input>
   </ion-item>
   <br>
 
-  <ion-button  size="large" class="center botonVerde" color="blue" (click)="irPagina()">
+  <ion-button  size="large" class="center botonVerde" color="blue" (click)="validarDatos()">
     Register
   </ion-button>
 
