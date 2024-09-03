@@ -19,7 +19,7 @@
     
     <h3 style="text-decoration: underline;">Title </h3>
     <ion-item>
-      <ion-input color="succes" labelPlacement="stacked" [clearInput]="true" placeholder="Title of yout Entry" [counter]="true" maxlength="25" [(ngModel)]="correo"></ion-input>
+      <ion-input color="succes" labelPlacement="stacked" [clearInput]="true" placeholder="Title of yout Entry" [counter]="true" maxlength="25" [(ngModel)]="titulo"></ion-input>
     </ion-item>
     <br>
     <h3 style="text-decoration: underline;">Image (optional) </h3>
@@ -32,7 +32,7 @@
     <h3 style="text-decoration: underline;">Tags </h3>
     <p>Examples: animals - curiosity - informative - ancient_history</p>
     <ion-item>
-      <ion-input color="succes" labelPlacement="stacked"  placeholder="Tags related to the Entry" [(ngModel)]="usuario"></ion-input>
+      <ion-input color="succes" labelPlacement="stacked"  placeholder="Tags related to the Entry" [(ngModel)]="tags"></ion-input>
     </ion-item>
 
     <br>
@@ -42,6 +42,7 @@
       <ion-textarea color="succes"
         placeholder="Briefing of your Entry"
         [autoGrow]="true"
+        [(ngModel)]="resumen"
       >
       </ion-textarea>
     </ion-item>
@@ -53,6 +54,7 @@
       <ion-textarea color="succes"
         placeholder="Entry Content"
         [autoGrow]="true"
+        [(ngModel)]="contenido"
       >
       </ion-textarea>
     </ion-item>
@@ -64,13 +66,14 @@
       <ion-textarea color="succes"
         placeholder="Sources"
         [autoGrow]="true"
+        [(ngModel)]="fuentes"
       >
       </ion-textarea>
     </ion-item>
     <br>
   
 
-    <ion-button  size="large" class="center botonVerde" color="blue" (click)="irPagina()">
+    <ion-button  size="large" class="center botonVerde" color="blue" (click)="validarDatos()">
       Entry Preview
     </ion-button>
     

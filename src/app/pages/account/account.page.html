@@ -25,11 +25,11 @@
 
 
       <ion-item>
-        <h1 class="centerText">Username</h1>
+        <h1 class="centerText"> {{usuario}} </h1>
       </ion-item>
 
       <ion-item>
-        <h1 class="centerText descText">"A honest and inspired reseacher"</h1>
+        <h1 class="centerText descText">" {{descrip}} "</h1>
       </ion-item>
 
       <ion-item>
@@ -41,7 +41,7 @@
       <ion-item>
         <h5 class="center">Entries created: </h5>
         <br>
-        <h5>2</h5>
+        <h5>0</h5>
       </ion-item>
 
       <ion-item>
@@ -52,14 +52,8 @@
 
     </ion-list>
 
-    <ion-button  size="large" class="center botonVerde" color="blue" (click)="irPagina()">
+    <ion-button  size="large" class="center botonVerde" color="blue"  [routerLink]="['/account-forms']">
       Edit Profile
     </ion-button>
-
-
-
-
-
-
   </ion-content>
 </div>

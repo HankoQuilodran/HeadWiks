@@ -16,7 +16,7 @@
 
   <h3 class="centerText">Title </h3>
   <ion-item>
-    <ion-input [clearInput]="true" helperText="Title" placeholder="Anotation Title" [counter]="true" maxlength="20" aria-required="true"></ion-input>
+    <ion-input [clearInput]="true" helperText="Title" placeholder="Anotation Title" [counter]="true" maxlength="20" aria-required="true" [(ngModel)]="title"></ion-input>
   </ion-item>
 
   <br>
@@ -25,13 +25,14 @@
     <ion-textarea color="succes"
       placeholder="Content"
       [autoGrow]="true"
-      [counter]="true" maxlength="300">
+      [counter]="true" maxlength="300"
+      [(ngModel)]="content">
     </ion-textarea>
   </ion-item>
 
   <br>
 
-  <ion-button  size="large" class="center botonVerde" color="blue" [routerLink]="['/entries']">
+  <ion-button  size="large" class="center botonVerde" color="blue" (click)="validarDatos()">
     Submit
   </ion-button>
 

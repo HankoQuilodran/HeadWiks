@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-account',
@@ -8,25 +8,30 @@ import { NavigationExtras, Router } from '@angular/router';
 })
 export class AccountPage implements OnInit {
 
-  constructor(private router: Router) { }
+
+  usuario:String="Username";
+  descrip:String="an inspiring description";
+
+
+  constructor(private router: Router, private activerouter: ActivatedRoute ) { 
+    this.activerouter.queryParams.subscribe(param => {
+      //validacion si en la navegacion existe la variable de contexto
+      if(this.router.getCurrentNavigation()?.extras.state){
+        this.usuario = this.router.getCurrentNavigation()?.extras?.state?.['user'];
+        this.descrip = this.router.getCurrentNavigation()?.extras?.state?.['desc'];
+      }
+    })
+
+  }
+
+
 
   ngOnInit() {
   }
 
 
-  usuario:String="";
-  correo:String="";
+  
 
 
-  irPagina(){
-    //creamos variable de contexto
-    let navigationextras: NavigationExtras = {
-      state: {
-        user: this.usuario,
-        email: this.correo,
-      }
-    }
 
-    this.router.navigate(['/account-forms'], navigationextras);
-  }
 }

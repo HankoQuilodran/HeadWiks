@@ -14,7 +14,7 @@ export class AccountFormsPage implements OnInit {
   }
 
   usuario:String="";
-  correo:String="";
+  descrip:String="";
 
 
 
@@ -23,7 +23,7 @@ export class AccountFormsPage implements OnInit {
     let navigationextras: NavigationExtras = {
       state: {
         user: this.usuario,
-        email: this.correo,
+        desc: this.descrip,
       }
     }
 

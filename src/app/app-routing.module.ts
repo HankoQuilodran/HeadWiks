@@ -50,6 +50,10 @@ const routes: Routes = [
   {
     path: 'entry-placeholder',
     loadChildren: () => import('./pages/entry-placeholder/entry-placeholder.module').then( m => m.EntryPlaceholderPageModule)
+  },
+  {
+    path: 'entry-preview',
+    loadChildren: () => import('./pages/entry-preview/entry-preview.module').then( m => m.EntryPreviewPageModule)
   }
 ];
 

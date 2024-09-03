@@ -1,12 +1,11 @@
-<ion-menu contentId="main-content">
-  <ion-header>
-    <ion-toolbar color="tertiary">
-      <ion-title>Main Page</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-content class="ion-padding">This is the menu content.</ion-content>
-</ion-menu>
-<div class="ion-page" id="main-content">
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Main Page</ion-title>
+    <ion-menu-button slot="start"></ion-menu-button>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">This is the menu content.</ion-content>
+<div class="ion-page">
   <ion-header>
     <ion-toolbar >
       <ion-buttons slot="start">
@@ -16,6 +15,13 @@
     </ion-toolbar>
   </ion-header>
   <ion-content class="ion-padding"> 
+
+    <ion-searchbar color="success" placeholder="Tags"></ion-searchbar>
+
+
+
+
+
 
     <ion-card button="True" [routerLink]="['/entries']">
       <img class="cardImage" alt="Silhouette of mountains" src="/assets/PlaceHolders/TurtleBite.jpg" />
@@ -34,7 +40,7 @@
       <img class="cardImage" alt="Silhouette of mountains" src="/assets/PlaceHolders/Sacabambaspis.png" />
       <ion-card-header>
         <ion-card-title class="greenText title">SACABAMBASPIS</ion-card-title>
-        <ion-card-subtitle>Tags: Curiosities - Animals </ion-card-subtitle>
+        <ion-card-subtitle>Tags: Curiosities - Prehistoric </ion-card-subtitle>
       </ion-card-header>
     
       <ion-card-content>

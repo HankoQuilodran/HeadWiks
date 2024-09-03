@@ -13,6 +13,7 @@ export class AppComponent {
     { title: 'Main Page', url: '/main-page', icon: 'grid' },
     { title: 'Account', url: '/account', icon: 'person' },
     { title: 'Make Entry', url: '/entry-forms', icon: 'create' },
+    { title: 'moderator-Mode', url: '/admin-page', icon: 'build' },
     { title: 'Log Out', url: '', icon: 'power' },
   ];
   public labels = [];

@@ -1,0 +1,100 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Entry</ion-title>
+  </ion-toolbar>
+</ion-header>
+<!-- Entrada como tal -->
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">entries</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-list lines="none" >
+    <ion-item>
+      <!-- Titulo -->
+      <h1>{{titulo}}</h1>
+    </ion-item>
+
+
+    <ion-item color="light">
+      <!-- Content -->
+      <p>{{contenido}}</p>
+    </ion-item>
+  
+  </ion-list>
+
+  <!-- Seccion de Fuentes -->
+
+  <ion-list>
+
+
+    <ion-item>
+      <!-- Sources -->
+      <h2>Sources</h2>
+
+    </ion-item>
+
+    <ion-item>
+      <!-- Sources1 -->
+      <p>{{fuentes}}</p>
+    </ion-item>
+
+  </ion-list>
+
+  <!-- Autor, Opciones y Tags -->
+
+  <ion-list lines="none">
+    <ion-item>
+      <!-- Author -->
+       <h3>Author: </h3>
+      <p>Username <br> 3/09/2024</p>
+    </ion-item>
+
+    <ion-item>
+      <!-- Like and Follow -->
+
+      <ion-icon size="large" class="green center" name="heart-outline" *ngIf="!like"></ion-icon>
+      <ion-icon size="large" class="green center" name="heart" *ngIf="like"></ion-icon>
+
+      <ion-icon size="large" class="green center" name="person-add-outline" *ngIf="!follow"></ion-icon>
+      <ion-icon size="large" class="green center" name="person-add" *ngIf="follow"></ion-icon>
+
+
+    </ion-item>
+
+    <ion-item>
+      <!-- Options -->
+      <ion-button  size="large" class="center botonVerde" color="blue" (click)="likeEntry()" >
+        Like Entry
+      </ion-button>
+      <ion-button  size="large" class="center botonVerde" color="blue" (click)="followEntry()" >
+        Follow Author
+      </ion-button>
+    </ion-item>
+    <ion-item>
+      <!-- Options -->
+      <ion-button  size="large" class="center botonVerde" color="blue">
+        Create Annotation
+      </ion-button>
+    </ion-item>
+
+
+
+    <ion-item>
+      <!-- Tags -->
+       <div class="center">
+        <h1>Tags</h1>
+        <p class="centerText"> {{tags}}</p>
+       </div>
+    </ion-item>
+
+    <ion-button  size="large" class="center botonVerde" color="blue" [routerLink]="['/main-page']">
+      Finish Entry
+    </ion-button>
+
+
+  </ion-list>

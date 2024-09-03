@@ -11,10 +11,10 @@ export class RegisterPage implements OnInit {
 
 
 
-  usuario:String="";
-  correo:String="";
-  contra1:String="";
-  contra2:String="";
+  usuario:string="";
+  correo:string="";
+  contra1:string="";
+  contra2:string="";
 
 
   constructor(private router: Router, private alertController: AlertController) { }
@@ -39,12 +39,18 @@ export class RegisterPage implements OnInit {
   }
 
   validarDatos(){
+    const regex = /^(?=.*\d)(?=.*[A-Z])(?=.*[\W_]).{8,}$/
+
     if((this.usuario=="") || (this.correo=="" ) || (this.contra1=="")){
       this.alerta("Try again", "No box should be left empty");
       return
     }
     else if(this.usuario.length < 5){
       this.alerta("Try again", "Username must be at least 5 characters long");
+      return
+    }
+    else if(!regex.test(this.contra1)){
+      this.alerta("Try again", "doesn't match with requirements");
       return
     }
     else if(this.contra1!=this.contra2){

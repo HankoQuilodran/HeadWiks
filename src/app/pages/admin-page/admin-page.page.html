@@ -1,13 +1,87 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>adminPage</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+<ion-menu contentId="main-content">
+  <ion-header>
     <ion-toolbar>
-      <ion-title size="large">adminPage</ion-title>
+      <ion-title style="color: green;">Account</ion-title>
     </ion-toolbar>
   </ion-header>
-</ion-content>
+  <ion-content class="ion-padding">This is the menu content.</ion-content>
+</ion-menu>
+<div class="ion-page" id="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Moderator</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    
+    <ion-list>
+
+      <ion-item>
+        <h1 class="centerText">Current App Statistics</h1>
+      </ion-item>
+
+      <ion-item>
+        <h5 class="center">Accounts: </h5>
+        <br>
+        <h5>3</h5>
+      </ion-item>
+
+      <ion-item>
+        <h5 class="center">Entries: </h5>
+        <br>
+        <h5>2</h5>
+      </ion-item>
+
+      <ion-item>
+        <h5 class="center">Annotations: </h5>
+        <br>
+        <h5>1</h5>
+      </ion-item>
+
+    </ion-list>
+
+    <ion-searchbar color="success" placeholder="Username"></ion-searchbar>
+
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="auto">Name</ion-col>
+          <ion-col size="auto">Entries</ion-col>
+          <ion-col size="auto">Annotations</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="auto">MemeResearcher </ion-col>
+          <ion-col size="auto">0</ion-col>
+          <ion-col size="auto">1</ion-col>
+          <ion-col size="auto"> view</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="auto">TheAnimalAnalyzer</ion-col>
+          <ion-col size="auto">1</ion-col>
+          <ion-col size="auto">0</ion-col>
+          <ion-col size="auto"> view</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="auto">SacabamLover065</ion-col>
+          <ion-col size="auto">1</ion-col>
+          <ion-col size="auto">0</ion-col>
+          <ion-col size="auto"> view</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="auto">Username</ion-col>
+          <ion-col size="auto">0</ion-col>
+          <ion-col size="auto">0</ion-col>
+          <ion-col size="auto"> view</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+
+  </ion-content>
+</div>
