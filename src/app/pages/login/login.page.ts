@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, MenuController } from '@ionic/angular';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -18,7 +18,7 @@ export class LoginPage implements OnInit {
   correoReg: String = "";
   contraReg: String = "";
 
-  constructor(private router: Router, private activerouter: ActivatedRoute , private alertController: AlertController) { 
+  constructor(private router: Router, private activerouter: ActivatedRoute , private alertController: AlertController, private menuController: MenuController) { 
     this.activerouter.queryParams.subscribe(param => {
       //validacion si en la navegacion existe la variable de contexto
       if(this.router.getCurrentNavigation()?.extras.state){
@@ -34,6 +34,7 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
+    this.menuController.enable(false, 'menuUniversal' );
   }
 
   irPagina(){

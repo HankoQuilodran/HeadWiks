@@ -1,7 +1,12 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/entry-admin']"> Mod-Ops </ion-button>
     </ion-buttons>
     <ion-title>Entry</ion-title>
   </ion-toolbar>
@@ -119,6 +124,9 @@
       <ion-button  size="large" class="center botonVerde" color="blue" (click)="likeEntry()" >
         Like Entry
       </ion-button>
+    </ion-item>
+
+    <ion-item>
       <ion-button  size="large" class="center botonVerde" color="blue" (click)="followEntry()" >
         Follow Author
       </ion-button>

@@ -54,7 +54,17 @@ const routes: Routes = [
   {
     path: 'entry-preview',
     loadChildren: () => import('./pages/entry-preview/entry-preview.module').then( m => m.EntryPreviewPageModule)
+  },
+  {
+    path: 'entry-admin',
+    loadChildren: () => import('./pages/entry-admin/entry-admin.module').then( m => m.EntryAdminPageModule)
+  },
+  {
+    path: '**',
+    loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
   }
+
+  
 ];
 
 @NgModule({

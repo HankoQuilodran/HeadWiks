@@ -27,19 +27,8 @@
       <ion-input [clearInput]="true" helperText="Avoid unprofesional usernames" placeholder="Username" [counter]="true" maxlength="20" [(ngModel)]="usuario"></ion-input>
     </ion-item>
 
-    <h3>Description </h3>
-    <ion-item>
-      <ion-input labelPlacement="stacked" [clearInput]="true" placeholder="Brief Description of you" [counter]="true" maxlength="30" [(ngModel)]="descrip"></ion-input>
-    </ion-item>
-  
-    <h3 style="text-decoration: underline;">Themes of Interest </h3>
-    <ion-item>
-      <ion-input labelPlacement="stacked"  placeholder="Interests"></ion-input>
-    </ion-item>
-    <br>
 
-
-    <ion-button  size="large" class="center botonVerde" color="blue" (click)="irPagina()">
+    <ion-button  size="large" class="center botonVerde" color="blue" (click)="validarDatos()">
       Finish
     </ion-button>
 
