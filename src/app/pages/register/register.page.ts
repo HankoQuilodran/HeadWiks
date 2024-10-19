@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, MenuController } from '@ionic/angular';
+import { User } from 'src/app/classes/user';
+import { ServicebdService } from 'src/app/services/servicebd.service';
 
 @Component({
   selector: 'app-register',
@@ -9,7 +11,7 @@ import { AlertController } from '@ionic/angular';
 })
 export class RegisterPage implements OnInit {
 
-
+  usuarios: User[] = [];
 
   usuario:string="";
   correo:string="";
@@ -17,9 +19,13 @@ export class RegisterPage implements OnInit {
   contra2:string="";
 
 
-  constructor(private router: Router, private alertController: AlertController) { }
+  constructor(private router: Router, private alertController: AlertController, private bd:ServicebdService, private menuController: MenuController) { }
 
   ngOnInit() {
+    this.menuController.enable(false, 'menuUniversal');
+    this.bd.fetchUsers().subscribe(res=>{
+      this.usuarios = res;
+    })
   }
 
 
@@ -38,11 +44,16 @@ export class RegisterPage implements OnInit {
     this.router.navigate(['/'], navigationextras);
   }
 
-  validarDatos(){
+
+  async validarDatos(){
     const regex = /^(?=.*\d)(?=.*[A-Z])(?=.*[\W_]).{8,}$/
 
     if((this.usuario=="") || (this.correo=="" ) || (this.contra1=="")){
       this.alerta("Try again", "No box should be left empty");
+      return
+    }
+    else if((this.correo.length < 10) && (!this.correo.includes("@") ) ) {
+      this.alerta("Try again", "email not valid");
       return
     }
     else if(this.usuario.length < 5){
@@ -62,7 +73,15 @@ export class RegisterPage implements OnInit {
       return
     }
     else {
-      this.irPagina();
+      try {
+        await this.bd.insertarUser(this.usuario, this.correo, this.contra1)
+        this.alerta("lograd?", "se ha introducido exitosamente");
+      } catch(error) {
+        
+        this.alerta("Error", "No se pudo registrar el usuario. Intenta nuevamente.");
+      }
+      
+      
     }
   }
 

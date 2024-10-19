@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController } from '@ionic/angular';
+import { NavigationExtras, Router } from '@angular/router';
+import { AlertController, MenuController } from '@ionic/angular';
+import { ServicebdService } from 'src/app/services/servicebd.service';
 
 @Component({
   selector: 'app-main-page',
@@ -8,9 +10,31 @@ import { MenuController } from '@ionic/angular';
 })
 export class MainPagePage implements OnInit {
 
-  constructor(private menucontroller: MenuController) { }
+  id_entry!: number;
 
-  ngOnInit() {}
+
+
+  constructor(private menucontroller: MenuController, private router: Router, private alertController: AlertController) { }
+
+  ngOnInit() {
+    this.menucontroller.enable(true, 'menuUniversal' );
+  }
+
+
+
+
+
+
+  irEntry(){
+    //creamos variable de contexto
+    let navigationextras: NavigationExtras = {
+      state: {
+        user: this.id_entry,
+      }
+    }
+    this.router.navigate(['/entries'], navigationextras);
+  }
+
 
 
 }

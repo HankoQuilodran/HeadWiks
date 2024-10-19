@@ -9,8 +9,8 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 export class AccountPage implements OnInit {
 
 
-  usuario:String="Username";
-  descrip:String="an inspiring description";
+  usuario:string="Username";
+  descrip:string="an inspiring description";
 
 
   constructor(private router: Router, private activerouter: ActivatedRoute ) { 

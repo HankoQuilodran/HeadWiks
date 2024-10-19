@@ -9,6 +9,21 @@ export class EntriesPage implements OnInit {
 
 
 
+
+
+
+  entry_id!: number;
+  
+
+  entry_title!: string;
+  entry_content!: string;
+  image: any;
+  sources!: string;
+  
+
+
+
+
   like:boolean=false;
   follow:boolean=false;
 

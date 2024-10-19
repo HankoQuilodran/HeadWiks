@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
+import { ServicebdService } from 'src/app/services/servicebd.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -9,44 +11,27 @@ import { AlertController, MenuController } from '@ionic/angular';
 export class LoginPage implements OnInit {
 
 
-  usuario: String = "";
-  correo: String = "";
-  contra: String = "";
+  usuario: string = "";
+  correo: string = "";
+  contra: string = "";
 
+  Verification:any;
 
-  usuarioReg: String = "";
-  correoReg: String = "";
-  contraReg: String = "";
-
-  constructor(private router: Router, private activerouter: ActivatedRoute , private alertController: AlertController, private menuController: MenuController) { 
-    this.activerouter.queryParams.subscribe(param => {
-      //validacion si en la navegacion existe la variable de contexto
-      if(this.router.getCurrentNavigation()?.extras.state){
-        this.usuarioReg = this.router.getCurrentNavigation()?.extras?.state?.['user'];
-        this.correoReg = this.router.getCurrentNavigation()?.extras?.state?.['email'];
-        this.contraReg = this.router.getCurrentNavigation()?.extras?.state?.['pass'];
-      }
-    })
-
-
-
-
-  }
+  constructor(private router: Router, private activerouter: ActivatedRoute , private alertController: AlertController, private menuController: MenuController, private db:ServicebdService) { }
 
   ngOnInit() {
     this.menuController.enable(false, 'menuUniversal' );
   }
 
-  irPagina(){
-    //creamos variable de contexto
-    let navigationextras: NavigationExtras = {
-      state: {
-        user: this.usuario,
-        email: this.correo,
-      }
-    }
+  Verificar(){
+    this.Verification = this.db.LoginVerification(this.usuario, this.correo, this.contra);
 
-    this.router.navigate(['/main-page'], navigationextras);
+    if(this.Verification){
+      this.router.navigate(['/main-page']);
+    }
+    else{
+      this.alerta("Try again", "incorrect data");
+    }
   }
 
   validarDatos(){
@@ -54,14 +39,32 @@ export class LoginPage implements OnInit {
       this.alerta("Try again", "No box should be left empty");
       return
     }
-    else if((this.usuario!= this.usuarioReg) || (this.correo!=this.correoReg ) || (this.contra!=this.contraReg)) {
-      this.alerta("Try again", "No Registered data");
-      return
-    }
     else {
-      this.irPagina();
+      this.Verificar();
     }
   }
+
+  validarLogin() {
+    this.db.isDBReady.subscribe(async (val) => {
+      //Validar que la base de datos esté lista
+      if(val) {
+        //Validar que el usuario exista y lo guarda en un Observable
+        await this.db.LoginVerification(this.usuario, this.correo, this.contra);
+        //Obtener el usuario actual
+        this.db.fetchUsuarioActual().subscribe(res => {
+          //Validar que el usuario exista (0 es el valor por defecto)
+          if(res.user_id > 0) {
+            this.router.navigate(['/main-page']);
+          } 
+          else {
+            //Mostrar mensaje de error
+            this.alerta("Autentication Error", "incorrect data");
+          }
+        });
+      }
+    });
+  }
+
 
 
 
