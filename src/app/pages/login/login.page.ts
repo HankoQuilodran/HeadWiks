@@ -40,7 +40,7 @@ export class LoginPage implements OnInit {
       return
     }
     else {
-      this.Verificar();
+      this.validarLogin();
     }
   }
 
@@ -67,6 +67,7 @@ export class LoginPage implements OnInit {
 
 
 
+  
 
 
 

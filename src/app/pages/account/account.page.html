@@ -20,12 +20,12 @@
     <ion-list lines="none">
       <!-- foto de perfil -->
       <ion-item>
-        <img class="profile center" src="/assets/PlaceHolders/profile_PH.jpg" alt="perfil">
+        <img class="profile center" [src]="UsedProfilePic" alt="perfil">
       </ion-item>
 
 
       <ion-item>
-        <h1 class="centerText"> {{usuario}} </h1>
+        <h1 class="centerText"> {{regUsername}} </h1>
       </ion-item>
 
       <ion-item>
@@ -51,5 +51,6 @@
     <ion-button  size="large" class="center botonVerde" color="blue"  [routerLink]="['/account-forms']">
       Edit Profile
     </ion-button>
+
   </ion-content>
 </div>

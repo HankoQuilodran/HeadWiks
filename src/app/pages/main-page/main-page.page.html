@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-title>Main Page</ion-title>
     <ion-menu-button slot="start"></ion-menu-button>
-    <ion-buttons slot="end">
+    <ion-buttons *ngIf="roleid > 1" slot="end">
       <ion-button [routerLink]="['/admin-page']"> Mod </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -16,39 +16,31 @@
   <ion-content class="ion-padding"> 
 
     <ion-searchbar color="success" placeholder="Tags"></ion-searchbar>
+    <div class="card-container">
+      
+      <!-- Entradas generadas automaticamente-->    
+      <ion-card *ngFor="let entry of entries" button="True" (click)="irEntry(entry.entry_id, entry.user_id)" >
+        <img class="cardImage" alt="Silhouette of mountains" [src]="entry.image" />
+        <ion-card-header>
+          <ion-card-title class="greenText title">{{entry.entry_title}}</ion-card-title>
+          <ion-card-subtitle>Tags: Curiosities - Prehistoric </ion-card-subtitle>
+        </ion-card-header>
+      
+        <ion-card-content>
+          <p>{{entry.briefing}}</p>
+          <h4 style="text-decoration: underline;">Author: Pendiente</h4>
+        </ion-card-content>
+      </ion-card>
 
+    </div>
 
-
-
-
-
-    <ion-card button="True" [routerLink]="['/entries']">
-      <img class="cardImage" alt="Silhouette of mountains" src="/assets/PlaceHolders/TurtleBite.jpg" />
-      <ion-card-header>
-        <ion-card-title class="greenText title">Turtle Teeth</ion-card-title>
-        <ion-card-subtitle>Tags: Curiosities - Animals </ion-card-subtitle>
-      </ion-card-header>
-    
-      <ion-card-content>
-        <p>Essay on some fascinating facts about Turtles and their apparent lack of real Teeth</p>
-        <h4 style="text-decoration: underline;">Author: TheAnimalAnalizer</h4>
-      </ion-card-content>
-    </ion-card>
-
-    <ion-card  button="True" [routerLink]="['/entry-placeholder']">
-      <img class="cardImage" alt="Silhouette of mountains" src="/assets/PlaceHolders/Sacabambaspis.png" />
-      <ion-card-header>
-        <ion-card-title class="greenText title">SACABAMBASPIS</ion-card-title>
-        <ion-card-subtitle>Tags: Curiosities - Prehistoric </ion-card-subtitle>
-      </ion-card-header>
-    
-      <ion-card-content>
-        <p>Recount of many interesting facts and curiosities around the already extinct creature that is the SACABAMBASPIS</p>
-        <h4 style="text-decoration: underline;">Author: SacabamLover065</h4>
-      </ion-card-content>
-    </ion-card>
-
-
+    <ion-list>
+      <ion-item *ngFor="let entry of entries">
+        <h2>{{ entry.entry_id }}</h2>
+        <p>{{ entry.entry_title }}</p>
+        <p>{{entry.creation_date}}</p>
+      </ion-item>
+    </ion-list>
 
 
 

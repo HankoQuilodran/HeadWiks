@@ -28,39 +28,36 @@ export class ServicebdService {
 
 
 
-  tablaLike: string = 'CREATE TABLE IF NOT EXISTS like(like_id INTEGER PRIMARY KEY autoincrement, user_id INTEGER, entry_id INTEGER, FOREIGN KEY("user_id") REFERENCES"tablaUser"("user_id"), FOREIGN KEY("entry_id") REFERENCES"tablaEntry"("entry_id"));';
+  tablaLike: string = 'CREATE TABLE IF NOT EXISTS like(like_id INTEGER PRIMARY KEY autoincrement, user_id INTEGER, entry_id INTEGER, FOREIGN KEY("user_id") REFERENCES"user"("user_id"), FOREIGN KEY("entry_id") REFERENCES"entry"("entry_id"));';
 
-  tablaFollow: string = 'CREATE TABLE IF NOT EXIST follow(follow_id INTEGER PRIMARY KEY autoincrement, user_id_principal INTEGER, user_id_follower INTEGER, FOREIGN KEY ("user_id_principal") REFERENCES"tablaUser"("user_id"), FOREIGN KEY ("user_id_follower") REFERENCES"tablaUser"("user_id"));';
+  tablaFollow: string = 'CREATE TABLE IF NOT EXIST follow(follow_id INTEGER PRIMARY KEY autoincrement, user_id_principal INTEGER, user_id_follower INTEGER, FOREIGN KEY ("user_id_principal") REFERENCES"user"("user_id"), FOREIGN KEY ("user_id_follower") REFERENCES"tablaUser"("user_id"));';
 
-  tablaEntry: string ='CREATE TABLE IF NOT EXISTS entry(entry_id INTEGER PRIMARY KEY autoincrement, user_id INTEGER NOT NULL, entry_title TEXT NOT NULL, entry_content TEXT NOT NULL, briefing TEXT NOT NULL, image TEXT, sources TEXT, creation_date TEXT NOT NULL, ban_date TEXT , reason TEXT, status_id TEXT, FOREIGN KEY ("user_id") REFERENCES "tablaUser"("user_id"), FOREIGN KEY("status_id") REFERENCES"tablaStatus"("status_id"));';
 
+  tablaEntry: string ='CREATE TABLE IF NOT EXISTS entry(entry_id INTEGER PRIMARY KEY autoincrement, user_id INTEGER NOT NULL, entry_title TEXT NOT NULL, entry_content TEXT NOT NULL, briefing TEXT NOT NULL, image TEXT, sources TEXT, creation_date TEXT NOT NULL, ban_date TEXT , reason TEXT, FOREIGN KEY ("user_id") REFERENCES "user"("user_id"));';
 
   tablaTag: string ='CREATE TABLE IF NOT EXISTS tag(tag_id INTEGER PRIMARY KEY autoincrement, tag_description TEXT);';
 
-  tablaTagEntry: string = "CREATE TABLE IF NOT EXISTS tag_entry(tag_entry_id INTEGER PRIMARY KEY autoincrement, entry_id INTEGER NOT NULL, tag_id INTEGER NOT NULL, FOREIGN KEY(entry_id));";
+  tablaTagEntry: string = "CREATE TABLE IF NOT EXISTS tag_entry(tag_entry_id INTEGER PRIMARY KEY autoincrement, entry_id INTEGER NOT NULL, tag_id INTEGER NOT NULL, FOREIGN KEY('entry_id') REFERENCES'entry'('entry_id'), FOREIGN KEY('tag_id') REFERENCES'tag'('tag_id'));";
 
-  tablaAnnotation: string = 'CREATE TABLE IF NOT EXISTS annotation(annotation_id INTEGER PRIMARY KEY autoincrement, entry_id INTEGER, user_id INTEGER, annotation_content TEXT, ban_date TEXT, reason TEXT, status_id INTEGER NOT NULL,  FOREIGN KEY("status_id") REFERENCES"tablaStatus"("status_id"));';
+  tablaAnnotation: string = 'CREATE TABLE IF NOT EXISTS annotation(annotation_id INTEGER PRIMARY KEY autoincrement, entry_id INTEGER, user_id INTEGER, annotation_content TEXT, ban_date TEXT, reason TEXT, status_id INTEGER NOT NULL,  FOREIGN KEY("status_id"));';
 
   //insertar defaults
 
-  registroUser: string = "INSERT or IGNORE INTO user(user_id, role_id, username, email, password, register_date) VALUES (1, 1, 'HANKO', 'HANKO@MAIL.COM', '123', '00/00/00' );";
+  registroUser: string = "INSERT or IGNORE INTO user(user_id, role_id, username, email, password, register_date) VALUES (1, 2, 'HANKO', 'HANKO@MAIL.COM', '123', '00/00/00' );";
 
   registroRole: string = "INSERT or IGNORE INTO role(role_id, role_name) VALUES (1, 'usuario'), (2, 'moderador');";
-
-
-
 
   registroLike: string = "INSERT or IGNORE INTO like(like_id, user_id, entry_id) VALUES(1, 1, 1);";
 
   registroFollow: string = "INSERT or IGNORE INTO follow(follow_id, user_id_principal, user_id_follower) VALUES(1, 1, 1);";
 
-  registroEntry: string = "INSERT or IGNORE INTO entry(entry_id, user_id,status_id, entry_title, entry_content, briefing, image, sources, creation_date, ban_date, reason ) VALUES(1, 1, 1, 'ENTRYTITLE', 'ENTRYCONTENT', 'BRIEFING', 'IMAGE', 'SOURCES', '00/00/00', '00/00/00', 'REASON');";
+  registroEntry: string = "INSERT or IGNORE INTO entry(entry_id, user_id, entry_title, entry_content, briefing, image, sources, creation_date, ban_date, reason ) VALUES(1, 1, 'ENTRYTITLE', 'ENTRYCONTENT', 'BRIEFING', '/assets/PlaceHolders/profile_PH.jpg', 'SOURCES', '00/00/00', '00/00/00', 'REASON');";
 
   registroTag: string = "INSERT or IGNORE INTO tag(tag_id, tag_description) VALUES(1, 'TAGDESCRIPTION');";
 
   registroTagEntry: string = "INSERT or IGNORE INTO tag_entry(tag_entry_id, entry_id, tag_id) VALUES(1, 1, 1);";
 
-  registroAnnotation: string = "INSERT or IGNORE INTO annotation(annotation_id, entry_id, user_id, status_id, annotation_content, band_date,reason ) VALUES(1, 1, 1, 1, 'ANNOTATIONCONTENT', '00/00/00', 'REASON');";
+  registroAnnotation: string = "INSERT or IGNORE INTO annotation(annotation_id, entry_id, user_id, annotation_content, band_date,reason ) VALUES(1, 1, 1, 'ANNOTATIONCONTENT', '00/00/00', 'REASON');";
 
   //variables de observables
 
@@ -83,7 +80,6 @@ export class ServicebdService {
   //observable del estado de la base de datos
 
   public isDBReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
-
 
 
   constructor(private sqlite: SQLite, private platform: Platform, private alertController: AlertController) { 
@@ -110,17 +106,49 @@ export class ServicebdService {
     register_date: ""
   });
 
+  private entradaActual = new BehaviorSubject<Entry>({
+    entry_id: 0,
+    user_id: 0,
+    entry_title: "",
+    entry_content: "",
+    briefing: "",
+    image: "",
+    sources: "",
+    creation_date: "",
+    ban_date: "",
+    reason: ""
+  });
 
+  private userBuscado = new BehaviorSubject<User>({
+    user_id: 0,
+    role_id: 0,
+    email: "",
+    password: "",
+    username: "",
+    profile_picture: "",
+    register_date: ""
+  });
 
   //metodos para manipular los observables
   fetchUsers(): Observable<User[]>{
     return this.listaUser.asObservable();
   }
 
+  fetchEntry(): Observable<Entry[]>{
+    return this.listaEntry.asObservable();
+  }
+
+  fetchEntradaActual(): Observable<Entry>{
+    return this.entradaActual.asObservable();
+  }
+
   fetchUsuarioActual():Observable<User>{
     return this.usuarioActual.asObservable();
   }
 
+  fetchUserBuscado():Observable<User>{
+    return this.userBuscado.asObservable();
+  }
 
   dbState(){
     return this.isDBReady.asObservable();
@@ -147,31 +175,44 @@ export class ServicebdService {
 
   }
 
+
+
   async crearTablas(){
     try{
       //ejecuto la creación de Tablas
 
-      
       await this.database.executeSql(this.tablaRole, []);
       await this.database.executeSql(this.tablaUser, []);
       
-      
-      
-      //await this.database.executeSql(this.tablaEntry, []);
-      //await this.database.executeSql(this.tablaTag, []);
-      //await this.database.executeSql(this.tablaTagEntry, []);
+      try{
+        await this.database.executeSql(this.tablaTagEntry, []);
+        await this.database.executeSql(this.tablaTag, []);
+        await this.database.executeSql(this.tablaEntry, []);
+      }catch(e){
+        this.presentAlert('Creación de Tablas', 'Error en crear tablas: ' + JSON.stringify(e));
+      }
       //await this.database.executeSql(this.tablaAnnotation, []);
 
-      //ejecuto los insert por defecto en el caso que existan
+      //-----ejecuto los insert por defecto en el caso que existan----
+
       await this.database.executeSql(this.registroRole, []);
       await this.database.executeSql(this.registroUser, []);
-      //await this.database.executeSql(this.registroEntry, []);
-      //await this.database.executeSql(this.registroTag, []);
-      //await this.database.executeSql(this.registroTagEntry, []);
+
+      try{
+        await this.database.executeSql(this.registroTag, []);
+        await this.database.executeSql(this.registroTagEntry, []);
+        await this.database.executeSql(this.registroEntry, []);
+
+      }catch(e){
+        this.presentAlert('poblacion de Tablas', 'Error en poblar las tablas: ' + JSON.stringify(e));
+      }
+
+      
       //await this.database.executeSql(this.registroAnnotation, []);
 
 
       this.seleccionarUser();
+      this.seleccionarEntry();
       //modifico el estado de la Base de Datos
       this.isDBReady.next(true);
 
@@ -228,6 +269,29 @@ export class ServicebdService {
     });
   }
 
+  public EntradaActual(id:number){
+    return this.database.executeSql('SELECT * FROM entry WHERE entry_id = ?', [id])
+    .then(res => {
+      if(res.rows.length > 0){
+        let data: Entry = {
+          entry_id: res.rows.item(0).entry_id,
+          user_id: res.rows.item(0).user_id,
+          entry_title: res.rows.item(0).entry_title,
+          entry_content: res.rows.item(0).entry_content,
+          briefing: res.rows.item(0).briefing,
+          image: res.rows.item(0).image,
+          sources: res.rows.item(0).sources,
+          creation_date: res.rows.item(0).creation_date,
+          ban_date: res.rows.item(0).ban_date,
+          reason: res.rows.item(0).reason,
+        };
+        this.entradaActual.next(data);
+      }
+    })
+    .catch(error => {
+      this.presentAlert('No entry found', JSON.stringify(error));
+    });
+  }
 
 
   seleccionarEntry(){
@@ -254,11 +318,32 @@ export class ServicebdService {
           }
         }
        //actualizar el observable
-       this.listaUser.next(items as any);
+       this.listaEntry.next(items as any);
 
     })
   }
 
+
+  public buscarUser(id:number) {
+    return this.database.executeSql('SELECT * FROM user WHERE user_id = ?' ,[id])
+    .then(res => {
+      if(res.rows.length > 0) {
+        let data: User = {
+          user_id: res.rows.item(0).user_id,
+          role_id: res.rows.item(0).role_id,
+          username: res.rows.item(0).username,
+          email: res.rows.item(0).email,
+          password: res.rows.item(0).password,
+          profile_picture: res.rows.item(0).profile_picture,
+          register_date: res.rows.item(0).register_date
+        };
+        this.userBuscado.next(data); 
+      }      
+    })
+    .catch(error => {
+      this.presentAlert('No user found', JSON.stringify(error));
+    });
+  }
 
 
 
@@ -298,18 +383,18 @@ export class ServicebdService {
       this.presentAlert("Modificado","User username Modified");
       this.seleccionarUser();
     }).catch(e=>{
-      this.presentAlert('Modificar', 'Error: ' + JSON.stringify(e));
+      this.presentAlert('Error al Modificar Username', 'Error: ' + JSON.stringify(e));
     })
 
   }
-
-  modificarUserImage(id:string, profile_picture:string){
+ 
+  modificarUserImage(id:string, profile_picture:any){
     this.presentAlert("service","ID: " + id);
-    return this.database.executeSql('UPDATE user SET profile_picture = ?',[profile_picture,id]).then(res=>{
+    return this.database.executeSql('UPDATE user SET profile_picture = ? WHERE user_id = ?',[profile_picture,id]).then(res=>{
       this.presentAlert("Modificado","User profile picture Modified");
       this.seleccionarUser();
     }).catch(e=>{
-      this.presentAlert('Modificar', 'Error: ' + JSON.stringify(e));
+      this.presentAlert('Error al Modificar imagen', 'Error: ' + JSON.stringify(e));
     })
 
   }
@@ -337,5 +422,14 @@ export class ServicebdService {
     })
   }
 
+  insertarEntry(user_id:number, entry_title:string, entry_content:string, briefing:string, image:any, sources:string) {
+    return this.database.executeSql('INSERT INTO entry(user_id, entry_title, entry_content, briefing, image, sources, creation_date) VALUES (?,?,?,?,?,?,Date("now"))',[user_id, entry_title, entry_content, briefing, image, sources]).then(res=>{
+      this.presentAlert("Insertar","Entry Registered");
+      this.presentAlert(entry_title, briefing);
+      this.seleccionarEntry();
+    }).catch(e=>{
+      this.presentAlert('Insertar entrada', 'Error: ' + JSON.stringify(e));
+    })
+  }
 
 }

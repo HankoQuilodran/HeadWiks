@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-
+import { User } from 'src/app/classes/user';
+import { ServicebdService } from 'src/app/services/servicebd.service';
 @Component({
   selector: 'app-account',
   templateUrl: './account.page.html',
@@ -8,20 +9,14 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 })
 export class AccountPage implements OnInit {
 
-
-  usuario:string="Username";
-  descrip:string="an inspiring description";
-
-
-  constructor(private router: Router, private activerouter: ActivatedRoute ) { 
-    this.activerouter.queryParams.subscribe(param => {
-      //validacion si en la navegacion existe la variable de contexto
-      if(this.router.getCurrentNavigation()?.extras.state){
-        this.usuario = this.router.getCurrentNavigation()?.extras?.state?.['user'];
-        this.descrip = this.router.getCurrentNavigation()?.extras?.state?.['desc'];
-      }
-    })
-
+  registeredUser!:User;
+  regUsername!: string;
+  regProfilePic: any;
+  UsedProfilePic: any ="/assets/PlaceHolders/profile_PH.jpg";
+  profilePicString!: string;
+  constructor(private router: Router, private activerouter: ActivatedRoute, private db:ServicebdService ) { 
+    //lo primero es conseguir la info del usuario que se registró
+    
   }
 
 
@@ -29,8 +24,27 @@ export class AccountPage implements OnInit {
   ngOnInit() {
   }
 
+  async ionViewWillEnter(){
+    this.RegUserInfo();
+    this.unsetDefaultImage();
+    
+  }
 
+  //conseguimos info del usuario que se registró
+  RegUserInfo(){
+    this.db.fetchUsuarioActual().subscribe(data => {
+      this.registeredUser = data;
+      this.regUsername = this.registeredUser.username;
+      this.regProfilePic = this.registeredUser.profile_picture;
+    });
+    this.profilePicString = (typeof this.regProfilePic).toString();
+  }
   
+  unsetDefaultImage(){
+    if(this.regProfilePic){
+      this.UsedProfilePic = this.regProfilePic;
+    }
+  }
 
 
 

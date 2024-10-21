@@ -22,9 +22,9 @@
       <ion-input color="succes" labelPlacement="stacked" [clearInput]="true" placeholder="Title of yout Entry" [counter]="true" maxlength="25" [(ngModel)]="titulo"></ion-input>
     </ion-item>
     <br>
-    <h3 style="text-decoration: underline;">Image (optional) </h3>
-    <img src="https://ionicframework.com/docs/img/demos/card-media.png" alt="Image">
-    <ion-button  size="large" class="center botonVerde" color="blue">
+    <h3 style="text-decoration: underline;">Image </h3>
+    <img [src]="imagen" alt="Image">
+    <ion-button  size="large" class="center botonVerde" color="blue" (click)="takePicture()" >
       Choose Image
     </ion-button>
   

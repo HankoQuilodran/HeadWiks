@@ -19,6 +19,11 @@
       <h1>{{titulo}}</h1>
     </ion-item>
 
+    <ion-item>
+      <!-- Imagen -->
+       <img [src]="imagen" alt="imagen elegida">
+    </ion-item>
+
 
     <ion-item color="light">
       <!-- Content -->
@@ -51,7 +56,7 @@
     <ion-item>
       <!-- Author -->
        <h3>Author: </h3>
-      <p>Username <br> 3/09/2024</p>
+      <p>{{regUsername}} <br> 3/09/2024</p>
     </ion-item>
 
     <ion-item>
@@ -71,10 +76,17 @@
       <ion-button  size="large" class="center botonVerde" color="blue" (click)="likeEntry()" >
         Like Entry
       </ion-button>
+    </ion-item>
+
+    <ion-item>
       <ion-button  size="large" class="center botonVerde" color="blue" (click)="followEntry()" >
         Follow Author
       </ion-button>
     </ion-item>
+
+
+
+
     <ion-item>
       <!-- Options -->
       <ion-button  size="large" class="center botonVerde" color="blue">
@@ -92,7 +104,7 @@
        </div>
     </ion-item>
 
-    <ion-button  size="large" class="center botonVerde" color="blue" [routerLink]="['/main-page']">
+    <ion-button  size="large" class="center botonVerde" color="blue" (click)="entryInsert()">
       Finish Entry
     </ion-button>
 

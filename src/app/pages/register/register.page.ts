@@ -29,22 +29,6 @@ export class RegisterPage implements OnInit {
   }
 
 
-
-
-
-  irPagina(){
-    //creamos variable de contexto
-    let navigationextras: NavigationExtras = {
-      state: {
-        user: this.usuario,
-        email: this.correo,
-        pass: this.contra1
-      }
-    }
-    this.router.navigate(['/'], navigationextras);
-  }
-
-
   async validarDatos(){
     const regex = /^(?=.*\d)(?=.*[A-Z])(?=.*[\W_]).{8,}$/
 
@@ -84,12 +68,6 @@ export class RegisterPage implements OnInit {
       
     }
   }
-
-
-
-
-
-
 
 
   async alerta(title:string, message:string) {

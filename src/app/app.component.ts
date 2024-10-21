@@ -13,7 +13,7 @@ export class AppComponent {
     { title: 'Main Page', url: '/main-page', icon: 'grid' },
     { title: 'Account', url: '/account', icon: 'person' },
     { title: 'Make Entry', url: '/entry-forms', icon: 'create' },
-    { title: 'Log Out', url: '', icon: 'power' },
+    { title: 'Log Out', url: '/login', icon: 'power' },
   ];
   public labels = [];
   constructor() {}

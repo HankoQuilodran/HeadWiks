@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Camera, CameraResultType } from '@capacitor/camera';
+import { User } from 'src/app/classes/user';
+import { ServicebdService } from 'src/app/services/servicebd.service';
 
 @Component({
   selector: 'app-account-forms',
@@ -10,13 +12,30 @@ import { Camera, CameraResultType } from '@capacitor/camera';
 })
 export class AccountFormsPage implements OnInit {
 
-  usuario:String="";
+  usuarioEdit:string="";
 
   imagen: any;
 
 
+  registeredUser!:User;
+  regUsername!: string;
+  regUserId!: any;
+  regProfilePic: any;
 
-  constructor(private router: Router, private alertController: AlertController) { }
+
+  defaultImage: any ="/assets/PlaceHolders/profile_PH.jpg";
+  profilePicString!: string;
+
+  constructor(private router: Router, private alertController: AlertController, private db:ServicebdService) { 
+    
+  }
+
+  async ionViewWillEnter(){
+    this.RegUserInfo();
+    this.setDefaultImage();
+    this.unsetDefaultImage();
+  }
+
 
   ngOnInit() {
   }
@@ -25,20 +44,24 @@ export class AccountFormsPage implements OnInit {
 
 
   validarDatos(){
-    if((this.usuario=="")){
+    if((this.usuarioEdit=="")){
       this.alerta("Try again", "Username Box empty");
+
       return
     }
-    else if((this.usuario.length < 5)){
+    else if((this.usuarioEdit.length < 5)){
       this.alerta("Try again", "Not enough characters on Username");
       return
     }
-    else if((this.usuario.length > 20)){
+    else if((this.usuarioEdit.length > 20)){
       this.alerta("Try again", "Too many characters on Username");
       return
     }
     else {
-      this.irPagina();
+      this.db.modificarUserUsername(this.regUserId, this.usuarioEdit)
+      this.db.modificarUserImage(this.regUserId, this.imagen)
+      this.alerta("Done Correctly", "Username and or Profile Pic modified");
+      this.router.navigate(['/account']);
     }
   }
 
@@ -53,18 +76,27 @@ export class AccountFormsPage implements OnInit {
   }
 
 
+  RegUserInfo(){
+    this.db.fetchUsuarioActual().subscribe(data => {
+      
+      this.registeredUser = data;
+      this.regUserId = this.registeredUser.user_id;
+      this.regUsername = this.registeredUser.username;
+      this.regProfilePic = this.registeredUser.profile_picture;
+    });
+  }
 
 
-
-  irPagina(){
-    //creamos variable de contexto
-    let navigationextras: NavigationExtras = {
-      state: {
-        user: this.usuario,
-      }
+  unsetDefaultImage(){
+    if(this.regProfilePic){
+      this.imagen = this.regProfilePic;
     }
+  }
 
-    this.router.navigate(['/account'], navigationextras);
+  setDefaultImage(){
+    if(!this.imagen){
+      this.imagen = this.defaultImage;
+    }
   }
 
   
