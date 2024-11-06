@@ -60,9 +60,18 @@ const routes: Routes = [
     loadChildren: () => import('./pages/entry-admin/entry-admin.module').then( m => m.EntryAdminPageModule)
   },
   {
+    path: 'watch-user',
+    loadChildren: () => import('./pages/watch-user/watch-user.module').then( m => m.WatchUserPageModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
+  },
+  {
+    path: 'watchuserpage2',
+    loadChildren: () => import('./pages/watchuserpage2/watchuserpage2.module').then( m => m.Watchuserpage2PageModule)
   }
+
 
   
 ];

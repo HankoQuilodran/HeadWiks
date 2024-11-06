@@ -1,0 +1,64 @@
+<ion-menu contentId="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title style="color: green;">Account</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">This is the menu content.</ion-content>
+</ion-menu>
+<div class="ion-page" id="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Account</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    
+    <ion-list lines="none">
+      <!-- foto de perfil -->
+      <ion-item>
+        <img class="profile center" [src]="UsedProfilePic" alt="perfil">
+      </ion-item>
+
+
+      <ion-item>
+        <h1 class="centerText"> {{Username}} </h1>
+      </ion-item>
+
+      <ion-item>
+        <h5 class="center">Dedicated Readers: </h5>
+        <br>
+        <h5>0</h5>
+      </ion-item>
+
+      <ion-item>
+        <h5 class="center">Entries created: </h5>
+        <br>
+        <h5>0</h5>
+      </ion-item>
+
+      <ion-item>
+        <h5 class="center">Annotations created: </h5>
+        <br>
+        <h5>0</h5>
+      </ion-item>
+
+    </ion-list>
+
+    <ion-item>
+      <h3>Account Status: {{UserState}}</h3>
+    </ion-item>
+
+    <ion-button  size="large" class="center botonVerde" color="blue"  >
+      Deactivate Account
+    </ion-button>
+
+    <ion-button  size="large" class="center botonVerde" color="blue"  >
+      Make Moderator User
+    </ion-button>
+
+  </ion-content>
+</div>

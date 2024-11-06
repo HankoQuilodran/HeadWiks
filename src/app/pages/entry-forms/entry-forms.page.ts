@@ -10,7 +10,7 @@ import { Camera, CameraResultType } from '@capacitor/camera';
 })
 export class EntryFormsPage implements OnInit {
 
-  imagen: any = "/assets/PlaceHolders/profile_PH.jpg";
+  imagen: any = "/assets/PlaceHolders/mountain_PH.png";
 
   titulo:string="";
   tags:string="";

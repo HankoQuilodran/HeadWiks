@@ -43,7 +43,7 @@ export class AccountFormsPage implements OnInit {
   
 
 
-  validarDatos(){
+  async validarDatos(){
     if((this.usuarioEdit=="")){
       this.alerta("Try again", "Username Box empty");
 
@@ -58,8 +58,9 @@ export class AccountFormsPage implements OnInit {
       return
     }
     else {
-      this.db.modificarUserUsername(this.regUserId, this.usuarioEdit)
-      this.db.modificarUserImage(this.regUserId, this.imagen)
+      await this.db.modificarUserUsername(this.regUserId, this.usuarioEdit)
+      await this.db.modificarUserImage(this.regUserId, this.imagen)
+      await this.db.actualizarUserLocal(this.regUserId)
       this.alerta("Done Correctly", "Username and or Profile Pic modified");
       this.router.navigate(['/account']);
     }

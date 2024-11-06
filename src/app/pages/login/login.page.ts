@@ -25,7 +25,6 @@ export class LoginPage implements OnInit {
 
   Verificar(){
     this.Verification = this.db.LoginVerification(this.usuario, this.correo, this.contra);
-
     if(this.Verification){
       this.router.navigate(['/main-page']);
     }

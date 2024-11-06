@@ -26,6 +26,7 @@ export class MainPagePage implements OnInit {
   ngOnInit() {
     this.RegUserInfo();
     this.menucontroller.enable(true, 'menuUniversal' );
+
     this.db.fetchEntry().subscribe(res=>{
       this.entries = res;
     })
@@ -50,6 +51,15 @@ export class MainPagePage implements OnInit {
 
       await this.db.EntradaActual(Entryid)
       await this.db.buscarUser(UserId)
+
+      try{
+        await this.db.seleccionarAnnotation(Entryid)
+      }catch{
+        this.alerta("error al seleccionar anotacion", "cuidao");
+      }
+
+
+      
       this.router.navigate(['/entries']);
 
     }catch{

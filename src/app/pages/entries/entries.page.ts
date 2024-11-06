@@ -4,6 +4,8 @@ import { User } from 'src/app/classes/user';
 import { ServicebdService } from 'src/app/services/servicebd.service';
 import { AlertController } from '@ionic/angular';
 import {Entry} from 'src/app/classes/entry'
+import { Annotation } from 'src/app/classes/annotation';
+
 @Component({
   selector: 'app-entries',
   templateUrl: './entries.page.html',
@@ -13,6 +15,7 @@ export class EntriesPage implements OnInit {
 
   entrada!: Entry;
   usuarioBuscado!: User;
+  anotaciones: Annotation[] = [];
 
   username!: string;
   entry_id!: number;
@@ -31,6 +34,9 @@ export class EntriesPage implements OnInit {
   constructor(private router: Router, private activerouter: ActivatedRoute, private db:ServicebdService, private alertController: AlertController) {}
 
   ngOnInit() {
+    this.db.fetchAnnotations().subscribe(res=>{
+      this.anotaciones = res;
+    })
   }
 
   async ionViewWillEnter(){
@@ -79,6 +85,7 @@ export class EntriesPage implements OnInit {
       this.follow = false;
     }
   }
+
 
 
 

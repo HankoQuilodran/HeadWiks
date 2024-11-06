@@ -9,16 +9,17 @@ import { ServicebdService } from 'src/app/services/servicebd.service';
 })
 export class AccountPage implements OnInit {
 
+
   registeredUser!:User;
   regUsername!: string;
   regProfilePic: any;
   UsedProfilePic: any ="/assets/PlaceHolders/profile_PH.jpg";
   profilePicString!: string;
+
   constructor(private router: Router, private activerouter: ActivatedRoute, private db:ServicebdService ) { 
-    //lo primero es conseguir la info del usuario que se registró
+
     
   }
-
 
 
   ngOnInit() {

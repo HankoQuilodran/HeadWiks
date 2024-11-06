@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-
+import {Entry} from 'src/app/classes/entry'
+import { ServicebdService } from 'src/app/services/servicebd.service';
 @Component({
   selector: 'app-entry-admin',
   templateUrl: './entry-admin.page.html',
@@ -9,16 +10,25 @@ import { AlertController } from '@ionic/angular';
 })
 export class EntryAdminPage implements OnInit {
 
+  entrada!: Entry;
+  user_id!: number;
+
   Ereport: string = "";
   Areport: string = "";
   author: string = "";
 
 
 
-  constructor(private router: Router, private alertController: AlertController) { }
+  constructor(private router: Router, private alertController: AlertController, private db:ServicebdService) { }
 
   ngOnInit() {
   }
+
+  async ionViewWillEnter(){
+    this.actualEntryInfo();
+  }
+
+
 
   ValidarEDelete() {
     if(this.Ereport==""){
@@ -38,6 +48,19 @@ export class EntryAdminPage implements OnInit {
     else {
       
     }
+  }
+
+  async IrAutor(){
+    await this.db.buscarUser(this.user_id);
+    this.router.navigate(['/watch-user']);
+  }
+
+  actualEntryInfo(){
+    this.db.fetchEntradaActual().subscribe(data => {
+      
+      this.entrada = data;
+      this.user_id = this.entrada.user_id;
+    });
   }
 
 

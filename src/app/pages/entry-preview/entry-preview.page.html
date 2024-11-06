@@ -62,29 +62,14 @@
     <ion-item>
       <!-- Like and Follow -->
 
-      <ion-icon size="large" class="green center" name="heart-outline" *ngIf="!like"></ion-icon>
-      <ion-icon size="large" class="green center" name="heart" *ngIf="like"></ion-icon>
+      <ion-icon size="large" class="green center" name="heart-outline" *ngIf="!like" button="True" (click)="likeEntry()"></ion-icon>
+      <ion-icon size="large" class="green center" name="heart" *ngIf="like"utton="True" (click)="likeEntry()"></ion-icon>
 
-      <ion-icon size="large" class="green center" name="person-add-outline" *ngIf="!follow"></ion-icon>
-      <ion-icon size="large" class="green center" name="person-add" *ngIf="follow"></ion-icon>
+      <ion-icon size="large" class="green center" name="person-add-outline" *ngIf="!follow" utton="True" (click)="followEntry()"></ion-icon>
+      <ion-icon size="large" class="green center" name="person-add" *ngIf="follow" utton="True" (click)="followEntry()"></ion-icon>
 
 
     </ion-item>
-
-    <ion-item>
-      <!-- Options -->
-      <ion-button  size="large" class="center botonVerde" color="blue" (click)="likeEntry()" >
-        Like Entry
-      </ion-button>
-    </ion-item>
-
-    <ion-item>
-      <ion-button  size="large" class="center botonVerde" color="blue" (click)="followEntry()" >
-        Follow Author
-      </ion-button>
-    </ion-item>
-
-
 
 
     <ion-item>

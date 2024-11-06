@@ -75,27 +75,22 @@
 
     </ion-item>
 
-    <!--
-    <ion-item>
-      <!- Options ->
-      <ion-button  size="large" class="center botonVerde" color="blue" (click)="likeEntry()" >
-        Like Entry
-      </ion-button>
-    </ion-item>
-
-    <ion-item>
-      <ion-button  size="large" class="center botonVerde" color="blue" (click)="followEntry()" >
-        Follow Author
-      </ion-button>
-    </ion-item>
-
-    -->
-
     <ion-item>
       <!-- Options -->
       <ion-button  size="large" class="center botonVerde" color="blue" [routerLink]="['/annotation-forms']">
         Create Annotation
       </ion-button>
+    </ion-item>
+
+
+    <!-- ANNOTATIONS  -->
+    <ion-item>
+      <h2>ANNOTATIONS</h2>
+    </ion-item>
+
+    <ion-item *ngFor="let anotacion of anotaciones">
+    <h1>{{anotacion.annotation_title}}</h1>
+    <p>{{anotacion.annotation_content}}</p>
     </ion-item>
 
 

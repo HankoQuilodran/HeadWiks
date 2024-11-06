@@ -59,7 +59,6 @@ export class RegisterPage implements OnInit {
     else {
       try {
         await this.bd.insertarUser(this.usuario, this.correo, this.contra1)
-        this.alerta("lograd?", "se ha introducido exitosamente");
       } catch(error) {
         
         this.alerta("Error", "No se pudo registrar el usuario. Intenta nuevamente.");
