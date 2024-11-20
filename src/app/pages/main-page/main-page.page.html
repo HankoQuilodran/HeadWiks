@@ -2,10 +2,6 @@
   <ion-toolbar>
     <ion-title>Main Page</ion-title>
     <ion-menu-button slot="start"></ion-menu-button>
-    
-    <ion-buttons *ngIf="roleid > 1" slot="end">
-      <ion-button [routerLink]="['/admin-page']"> Mod </ion-button>
-    </ion-buttons>
 
   </ion-toolbar>
 </ion-header>
@@ -14,23 +10,26 @@
   <ion-header>
     <br>
     <br>
+    <br>
   </ion-header>
   <ion-content class="ion-padding"> 
+    <br>
 
-    <ion-searchbar color="success" placeholder="Tags"></ion-searchbar>
-    <div class="card-container">
+    <img class="logo"
+    src="/assets/HW_Logo.png"
+    alt="logo"
+    >
 
+    <div>
       <!-- Entradas generadas automaticamente-->    
       <ion-card *ngFor="let entry of entries" button="True" (click)="irEntry(entry.entry_id, entry.user_id)" >
         <img class="cardImage" alt="Silhouette of mountains" [src]="entry.image" />
         <ion-card-header>
           <ion-card-title class="greenText title">{{entry.entry_title}}</ion-card-title>
-          <ion-card-subtitle>Tags: Curiosities - Prehistoric </ion-card-subtitle>
         </ion-card-header>
       
         <ion-card-content>
           <p>{{entry.briefing}}</p>
-          <h4 style="text-decoration: underline;">Author: Pendiente</h4>
         </ion-card-content>
       </ion-card>
 

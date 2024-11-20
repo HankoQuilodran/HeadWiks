@@ -18,6 +18,12 @@ export class RegisterPage implements OnInit {
   contra1:string="";
   contra2:string="";
 
+  userNP!:boolean;
+  emailNP!:boolean;
+  passNP!:boolean;
+
+  placeHolder:boolean = true;
+
 
   constructor(private router: Router, private alertController: AlertController, private bd:ServicebdService, private menuController: MenuController) { }
 
@@ -28,23 +34,60 @@ export class RegisterPage implements OnInit {
     })
   }
 
+  async ionViewWillEnter(){
+    this.userNP = false;
+    this.emailNP = false;
+    this.passNP = false;
+  }
+
 
   async validarDatos(){
     const regex = /^(?=.*\d)(?=.*[A-Z])(?=.*[\W_]).{8,}$/
-
+    //validar datos vacios
     if((this.usuario=="") || (this.correo=="" ) || (this.contra1=="")){
       this.alerta("Try again", "No box should be left empty");
       return
     }
-    else if((this.correo.length < 10) && (!this.correo.includes("@") ) ) {
+
+    
+    //validar correo
+    const emailunico = await this.bd.emailUnico(this.correo);
+
+    if((this.correo.length < 5) && (!this.correo.includes("@") ) ) {
       this.alerta("Try again", "email not valid");
+      this.emailNP = false;
       return
     }
-    else if(this.usuario.length < 5){
-      this.alerta("Try again", "Username must be at least 5 characters long");
+    else if(!emailunico){
+      this.alerta("Try again", "Email Already registered");
+      this.emailNP = false;
+      return
+
+    }
+    else{
+      this.emailNP = true;
+    }
+
+    
+    //validar usuario
+    const userUnico = await this.bd.usernameUnico(this.usuario);
+    if((this.usuario.length < 5) || (this.usuario.length > 20)){
+      this.alerta("Try again", "Wrong number of characters in Username");
+      this.userNP = false;
       return
     }
-    else if(!regex.test(this.contra1)){
+    else if(!userUnico){
+      this.alerta("Try again", "Username Already Exists");
+      this.userNP = false;
+      return
+
+    }
+    else{
+      this.userNP = true;
+    }
+
+    //validar contraseña
+    if(!regex.test(this.contra1)){
       this.alerta("Try again", "doesn't match with requirements");
       return
     }
@@ -56,9 +99,16 @@ export class RegisterPage implements OnInit {
       this.alerta("Try again", "Password must be at least 8 characters long");
       return
     }
-    else {
+    else{
+      this.passNP = true;
+    }
+
+
+    if(this.emailNP && this.userNP && this.passNP){
       try {
+        
         await this.bd.insertarUser(this.usuario, this.correo, this.contra1)
+        this.router.navigate(['/login']);
       } catch(error) {
         
         this.alerta("Error", "No se pudo registrar el usuario. Intenta nuevamente.");

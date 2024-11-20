@@ -27,13 +27,6 @@
     <ion-button  size="large" class="center botonVerde" color="blue" (click)="takePicture()" >
       Choose Image
     </ion-button>
-  
-    <br>
-    <h3 style="text-decoration: underline;">Tags </h3>
-    <p>Examples: animals - curiosity - informative - ancient_history</p>
-    <ion-item>
-      <ion-input color="succes" labelPlacement="stacked"  placeholder="Tags related to the Entry" [(ngModel)]="tags"></ion-input>
-    </ion-item>
 
     <br>
     <h3 style="text-decoration: underline;">Briefing </h3>
@@ -49,7 +42,7 @@
 
     <br>
     <h3 style="text-decoration: underline;">Entry Content </h3>
-    <p>Separate your important paragraphs with <br> " // " symbols </p>
+    <p>The Main Content of your Entry</p>
     <ion-item>
       <ion-textarea color="succes"
         placeholder="Entry Content"
@@ -61,7 +54,7 @@
     <br>
 
     <h3 style="text-decoration: underline;">Sources </h3>
-    <p>Separate your different sources with <br> " // " symbols </p>
+    <p>Sources Used to create this Entry</p>
     <ion-item>
       <ion-textarea color="succes"
         placeholder="Sources"
@@ -76,12 +69,6 @@
     <ion-button  size="large" class="center botonVerde" color="blue" (click)="validarDatos()">
       Entry Preview
     </ion-button>
-    
-    
-  
-  
-  
-  
   
   </ion-content>
 </div>

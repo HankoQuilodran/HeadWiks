@@ -56,37 +56,14 @@
     <ion-item>
       <!-- Author -->
        <h3>Author: </h3>
-      <p>{{regUsername}} <br> 3/09/2024</p>
+      <p>{{regUsername}} <br> 0/00/0000</p>
     </ion-item>
-
-    <ion-item>
-      <!-- Like and Follow -->
-
-      <ion-icon size="large" class="green center" name="heart-outline" *ngIf="!like" button="True" (click)="likeEntry()"></ion-icon>
-      <ion-icon size="large" class="green center" name="heart" *ngIf="like"utton="True" (click)="likeEntry()"></ion-icon>
-
-      <ion-icon size="large" class="green center" name="person-add-outline" *ngIf="!follow" utton="True" (click)="followEntry()"></ion-icon>
-      <ion-icon size="large" class="green center" name="person-add" *ngIf="follow" utton="True" (click)="followEntry()"></ion-icon>
-
-
-    </ion-item>
-
 
     <ion-item>
       <!-- Options -->
       <ion-button  size="large" class="center botonVerde" color="blue">
         Create Annotation
       </ion-button>
-    </ion-item>
-
-
-
-    <ion-item>
-      <!-- Tags -->
-       <div class="center">
-        <h1>Tags</h1>
-        <p class="centerText"> {{tags}}</p>
-       </div>
     </ion-item>
 
     <ion-button  size="large" class="center botonVerde" color="blue" (click)="entryInsert()">

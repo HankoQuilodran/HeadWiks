@@ -29,34 +29,28 @@
       </ion-item>
 
       <ion-item>
-        <h5 class="center">Dedicated Readers: </h5>
-        <br>
-        <h5>0</h5>
-      </ion-item>
-
-      <ion-item>
         <h5 class="center">Entries created: </h5>
         <br>
-        <h5>0</h5>
+        <h5>{{entryCount}}</h5>
       </ion-item>
 
       <ion-item>
         <h5 class="center">Annotations created: </h5>
         <br>
-        <h5>0</h5>
+        <h5>{{annotationCount}}</h5>
       </ion-item>
 
     </ion-list>
 
     <ion-item>
-      <h3>Account Status: {{UserState}}</h3>
+      <h5>Account Status: {{UserState}}</h5>
     </ion-item>
 
-    <ion-button  size="large" class="center botonVerde" color="blue"  >
+    <ion-button  size="large" class="center botonVerde" color="blue" (click)="deactivateAccount()" >
       Deactivate Account
     </ion-button>
 
-    <ion-button  size="large" class="center botonVerde" color="blue"  >
+    <ion-button  size="large" class="center botonVerde" color="blue" (click)="upgradeAccount()" >
       Make Moderator User
     </ion-button>
 

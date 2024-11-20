@@ -27,10 +27,14 @@ export class MainPagePage implements OnInit {
     this.RegUserInfo();
     this.menucontroller.enable(true, 'menuUniversal' );
 
+    
+    
+  }
+
+  async ionViewWillEnter(){
     this.db.fetchEntry().subscribe(res=>{
       this.entries = res;
     })
-    
   }
 
 
@@ -53,12 +57,10 @@ export class MainPagePage implements OnInit {
       await this.db.buscarUser(UserId)
 
       try{
-        await this.db.seleccionarAnnotation(Entryid)
+        await this.db.seleccionarAnnotationSpecific(Entryid)
       }catch{
         this.alerta("error al seleccionar anotacion", "cuidao");
       }
-
-
       
       this.router.navigate(['/entries']);
 

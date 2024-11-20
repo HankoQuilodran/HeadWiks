@@ -16,12 +16,18 @@ export class AccountFormsPage implements OnInit {
 
   imagen: any;
 
+  cambio1!:boolean;
+  cambio2!:boolean;
+
+  usuarioUnico!: boolean;
 
   registeredUser!:User;
   regUsername!: string;
   regUserId!: any;
   regProfilePic: any;
 
+  entryCount: any;
+  annotationCount: any;
 
   defaultImage: any ="/assets/PlaceHolders/profile_PH.jpg";
   profilePicString!: string;
@@ -34,36 +40,70 @@ export class AccountFormsPage implements OnInit {
     this.RegUserInfo();
     this.setDefaultImage();
     this.unsetDefaultImage();
+
+    this.cambio1 = false;
+    this.cambio2 = false;
   }
 
 
   ngOnInit() {
+
   }
+
 
   
 
 
   async validarDatos(){
-    if((this.usuarioEdit=="")){
-      this.alerta("Try again", "Username Box empty");
 
-      return
+    const userUnico = await this.db.usernameUnico(this.usuarioEdit);
+
+    //validar Username
+    if(this.usuarioEdit==""){
+      this.cambio1 = false;
+      
     }
-    else if((this.usuarioEdit.length < 5)){
-      this.alerta("Try again", "Not enough characters on Username");
-      return
+    else{
+      if((this.usuarioEdit.length < 5) || (this.usuarioEdit.length > 20)){
+        this.alerta("Try again", "Wrong number of characters");
+        return
+      }
+      else if(!userUnico){
+        this.alerta("Try again", "Username Already Exists");
+        return
+
+      }
+      else {
+        this.cambio1 = true;
+      }
     }
-    else if((this.usuarioEdit.length > 20)){
-      this.alerta("Try again", "Too many characters on Username");
-      return
+    
+
+    //validar Imagen
+    if(this.regProfilePic == "" || this.regProfilePic == this.imagen){
+      this.cambio2 = false;
     }
     else {
+      this.cambio2 = true;
+    }
+
+
+
+    if(this.cambio1){
       await this.db.modificarUserUsername(this.regUserId, this.usuarioEdit)
+      await this.db.actualizarUserLocal(this.regUserId)
+    }
+
+    if(this.cambio2){
       await this.db.modificarUserImage(this.regUserId, this.imagen)
       await this.db.actualizarUserLocal(this.regUserId)
-      this.alerta("Done Correctly", "Username and or Profile Pic modified");
+     
+    }
+
+    if(this.cambio1 || this.cambio2){
       this.router.navigate(['/account']);
     }
+
   }
 
   async alerta(title:string, message:string) {

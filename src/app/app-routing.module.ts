@@ -64,13 +64,18 @@ const routes: Routes = [
     loadChildren: () => import('./pages/watch-user/watch-user.module').then( m => m.WatchUserPageModule)
   },
   {
-    path: '**',
-    loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
-  },
-  {
     path: 'watchuserpage2',
     loadChildren: () => import('./pages/watchuserpage2/watchuserpage2.module').then( m => m.Watchuserpage2PageModule)
+  },
+  {
+    path: 'rec-password',
+    loadChildren: () => import('./pages/rec-password/rec-password.module').then( m => m.RecPasswordPageModule)
+  },
+  {
+    path: '**',
+    loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
   }
+
 
 
   

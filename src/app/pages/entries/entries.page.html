@@ -1,16 +1,21 @@
 <ion-header [translucent]="true">
+  
   <ion-toolbar>
 
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button>Back</ion-back-button>
     </ion-buttons>
 
-    <ion-buttons slot="end">
-      <ion-button [routerLink]="['/entry-admin']"> Mod-Ops </ion-button>
-    </ion-buttons>
     <ion-title>Entry</ion-title>
+
+    <ion-buttons *ngIf="Autor == true" slot="end" >
+      <ion-button [routerLink]="['/entry-admin']"> Entry-Ops </ion-button>
+    </ion-buttons>
+
   </ion-toolbar>
+
 </ion-header>
+
 <!-- Entrada como tal -->
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
@@ -56,23 +61,11 @@
 
   <!-- Autor, Opciones y Tags -->
 
-  <ion-list lines="none">
+  <ion-list lines="inset">
     <ion-item>
       <!-- Author -->
        <h3>Author: </h3>
       <p>{{username}} <br> {{creation_date}}</p>
-    </ion-item>
-
-    <ion-item>
-      <!-- Like and Follow -->
-
-      <ion-icon size="large" class="green center" name="heart-outline" *ngIf="!like" button="True" (click)="likeEntry()"></ion-icon>
-      <ion-icon size="large" class="green center" name="heart" *ngIf="like"utton="True" (click)="likeEntry()"></ion-icon>
-
-      <ion-icon size="large" class="green center" name="person-add-outline" *ngIf="!follow" utton="True" (click)="followEntry()"></ion-icon>
-      <ion-icon size="large" class="green center" name="person-add" *ngIf="follow" utton="True" (click)="followEntry()"></ion-icon>
-
-
     </ion-item>
 
     <ion-item>
@@ -88,22 +81,15 @@
       <h2>ANNOTATIONS</h2>
     </ion-item>
 
-    <ion-item *ngFor="let anotacion of anotaciones">
-    <h1>{{anotacion.annotation_title}}</h1>
-    <p>{{anotacion.annotation_content}}</p>
-    </ion-item>
-
-
-
+    <div *ngFor="let anotacion of anotaciones">
     <ion-item>
-      <!-- Tags -->
-       <div class="center">
-        <h1>Tags</h1>
-        <p class="centerText">{{tags}}</p>
-       </div>
+    <h2> {{anotacion.annotation_title}}</h2>
+    <br>
+    <p> {{anotacion.annotation_content}}</p>
     </ion-item>
+    </div>
 
 
   </ion-list>
-  
+
 </ion-content>

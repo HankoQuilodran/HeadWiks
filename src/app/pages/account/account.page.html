@@ -26,24 +26,23 @@
 
       <ion-item>
         <h1 class="centerText"> {{regUsername}} </h1>
+        
       </ion-item>
 
-      <ion-item>
-        <h5 class="center">Dedicated Readers: </h5>
-        <br>
-        <h5>0</h5>
+      <ion-item *ngIf="regRoleId == 2" class="center">
+        <h5 > Moderator</h5>
       </ion-item>
 
       <ion-item>
         <h5 class="center">Entries created: </h5>
         <br>
-        <h5>0</h5>
+        <h5>{{entryCount}}</h5>
       </ion-item>
 
       <ion-item>
         <h5 class="center">Annotations created: </h5>
         <br>
-        <h5>0</h5>
+        <h5>{{annotationCount}}</h5>
       </ion-item>
 
     </ion-list>

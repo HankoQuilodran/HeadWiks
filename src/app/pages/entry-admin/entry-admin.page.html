@@ -5,7 +5,7 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
 
-    <ion-title>Mod-Options</ion-title>
+    <ion-title>Entry-Options</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -14,16 +14,13 @@
 
 
     <h1>Author</h1>
-    <h2>name: </h2>
-    <h2>Entries Posted: </h2>
-    <ion-item>
+    <h2>name: {{Username}}</h2>
+
+    <ion-item *ngIf="admin == true">
       <ion-button  size="large" class="center botonVerde" color="blue" (click)="IrAutor()" >
         See Author Account
       </ion-button>
     </ion-item>
-
-
-
 
     <h1>Entry</h1>
 
@@ -36,33 +33,22 @@
     </ion-item>
 
     <ion-item>
-      <ion-button  size="large" class="center botonVerde" color="blue" >
+      <ion-button  size="large" class="center botonVerde" color="blue"  (click)="ValidarEDelete()" >
         Deactivate Entry
       </ion-button>
     </ion-item>
     
-
     <h1>Annotations</h1>
 
-    <ion-item>
-      <ion-textarea color="succes"
-        placeholder="Deleted Annotation Report"
-        [autoGrow]="true"
-        [(ngModel)]="Areport"
-      ></ion-textarea>
-    </ion-item>
-
-    <ion-item>
-      <h2>number: <br> Author: </h2>
-      <ion-button  size="large" class="center botonVerde" color="blue" >
-        Delete Annotation
+    <ion-item *ngFor="let anotacion of anotaciones"  >
+      <h2>{{anotacion.annotation_title}}</h2>
+      <ion-button  size="large" class="center botonVerde" color="blue" (click)="desactivarAnnotation(anotacion.annotation_id)" >
+        Deactivate  Annotation
       </ion-button>
     </ion-item>
 
 
 
   </ion-list>
-  
- 
 
 </ion-content>

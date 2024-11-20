@@ -16,7 +16,7 @@
 
   <h3 class="centerText">Title </h3>
   <ion-item>
-    <ion-input [clearInput]="true" helperText="Title" placeholder="Anotation Title" [counter]="true" maxlength="20" aria-required="true" [(ngModel)]="title"></ion-input>
+    <ion-input [clearInput]="true" helperText="Title" placeholder="Anotation Title" [counter]="true" maxlength="15" aria-required="true" [(ngModel)]="title"></ion-input>
   </ion-item>
 
   <br>
@@ -25,7 +25,7 @@
     <ion-textarea color="succes"
       placeholder="Content"
       [autoGrow]="true"
-      [counter]="true" maxlength="300"
+      [counter]="true" maxlength="150"
       [(ngModel)]="content">
     </ion-textarea>
   </ion-item>

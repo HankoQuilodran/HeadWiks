@@ -29,7 +29,7 @@ export class EntryFormsPage implements OnInit {
 
 
   validarDatos(){
-    if((this.titulo=="") || (this.tags=="" ) || (this.resumen=="") || (this.contenido=="") || (this.fuentes=="") || (this.imagen=="")){
+    if((this.titulo=="") || (this.resumen=="") || (this.contenido=="") || (this.fuentes=="") || (this.imagen=="")){
       this.alerta("Try again", "No box should be left empty");
       return
     }

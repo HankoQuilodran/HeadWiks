@@ -74,7 +74,7 @@ export class EntryPreviewPage implements OnInit {
 
   async entryInsert(){
     await this.db.insertarEntry(this.regUserId, this.titulo, this.contenido, this.resumen, this.imagen, this.fuentes )
-      this.router.navigate(['/main-page']);
+    this.router.navigate(['/main-page']);
   }
   
 

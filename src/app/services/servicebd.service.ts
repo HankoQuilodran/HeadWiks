@@ -43,11 +43,11 @@ export class ServicebdService {
 
   //insertar defaults
 
-  registroUser: string = "INSERT or IGNORE INTO user(user_id, role_id, username, email, password, register_date) VALUES (1, 2, 'HANKO', 'HANKO@MAIL.COM', '123', '00/00/00' );";
+  registroUser: string = "INSERT or IGNORE INTO user(user_id, role_id, username, email, password, register_date) VALUES (1, 2, 'MainAdmin', 'HANKO@MAIL.COM', 'Contra1!', '00/00/00' );";
 
-  registroRole: string = "INSERT or IGNORE INTO role(role_id, role_name) VALUES (1, 'usuario'), (2, 'moderador');";
+  registroRole: string = "INSERT or IGNORE INTO role(role_id, role_name) VALUES (0, 'desactivado'), (1, 'usuario'), (2, 'moderador');";
 
-  registroStatus: string = "INSERT OR IGNORE INTO status(status_id, status_description) VALUES (1, 'active'), (2, 'inactive');";
+  registroStatus: string = "INSERT OR IGNORE INTO status(status_id, status_description) VALUES (0, 'inactive'), (1, 'active');";
 
   registroLike: string = "INSERT or IGNORE INTO like(like_id, user_id, entry_id) VALUES(1, 1, 1);";
 
@@ -190,11 +190,8 @@ export class ServicebdService {
 
       await this.database.executeSql(this.tablaRole, []);
       await this.database.executeSql(this.tablaUser, []);
-
       await this.database.executeSql(this.tablaStatus, []);
-      
-      //await this.database.executeSql(this.tablaTagEntry, []);
-      //await this.database.executeSql(this.tablaTag, []);
+
       try{
         await this.database.executeSql(this.tablaEntry, []);
       }catch(e){
@@ -213,10 +210,6 @@ export class ServicebdService {
       await this.database.executeSql(this.registroUser, []);
       await this.database.executeSql(this.registroStatus, []);
 
-      //await this.database.executeSql(this.registroTag, []);
-      //await this.database.executeSql(this.registroTagEntry, []);
-      
-
       try{
         await this.database.executeSql(this.registroEntry, []);
       }catch(e){
@@ -231,6 +224,7 @@ export class ServicebdService {
 
       this.seleccionarUser();
       this.seleccionarEntry();
+      this.seleccionarAnnotation();
       //modifico el estado de la Base de Datos
       this.isDBReady.next(true);
 
@@ -240,7 +234,7 @@ export class ServicebdService {
   }
 
   seleccionarUser(){
-    return this.database.executeSql('SELECT * FROM user', []).then(res=>{
+    return this.database.executeSql('SELECT * FROM user WHERE role_id >= 1', []).then(res=>{
        //variable para almacenar el resultado de la consulta
        let items: User[] = [];
        //valido si trae al menos un registro
@@ -267,7 +261,7 @@ export class ServicebdService {
   }
 
   public LoginVerification(username:string, email:string, password:string) {
-    return this.database.executeSql('SELECT * FROM user WHERE username = ? AND email = ? AND password = ?' ,[username, email, password])
+    return this.database.executeSql('SELECT * FROM user WHERE username = ? AND email = ? AND password = ? AND role_id >= 1' ,[username, email, password])
     .then(res => {
       if(res.rows.length > 0) {
         let data: User = {
@@ -314,7 +308,7 @@ export class ServicebdService {
 
 
   seleccionarEntry(){
-    return this.database.executeSql('SELECT * FROM entry', []).then(res=>{
+    return this.database.executeSql('SELECT * FROM entry WHERE status_id = 1', []).then(res=>{
        //variable para almacenar el resultado de la consulta
        let items: Entry[] = [];
        //valido si trae al menos un registro
@@ -343,8 +337,8 @@ export class ServicebdService {
     })
   }
 
-  seleccionarAnnotation(entryId: number){
-    return this.database.executeSql('SELECT * FROM annotation WHERE entry_id = ?', [entryId]).then(res=>{
+  seleccionarAnnotation(){
+    return this.database.executeSql('SELECT * FROM annotation WHERE status_id = 1', []).then(res=>{
        //variable para almacenar el resultado de la consulta
        let items: Annotation[] = [];
        //valido si trae al menos un registro
@@ -357,8 +351,35 @@ export class ServicebdService {
               user_id: res.rows.item(i).user_id,
               entry_id: res.rows.item(i).entry_id,
               status_id: res.rows.item(i).status_id,
-              annotation_title: res.rows.item(i).entry_title,
-              annotation_content: res.rows.item(i).entry_content,
+              annotation_title: res.rows.item(i).annotation_title,
+              annotation_content: res.rows.item(i).annotation_content,
+              ban_date: res.rows.item(i).ban_date,
+              reason: res.rows.item(i).reason
+            })
+          }
+        }
+       //actualizar el observable
+       this.listaAnnotation.next(items as any);
+
+    })
+  }
+
+  seleccionarAnnotationSpecific(entryId: number){
+    return this.database.executeSql('SELECT * FROM annotation WHERE entry_id = ? AND status_id = 1', [entryId]).then(res=>{
+       //variable para almacenar el resultado de la consulta
+       let items: Annotation[] = [];
+       //valido si trae al menos un registro
+        if(res.rows.length > 0){
+        //recorro mi resultado
+          for(var i=0; i < res.rows.length; i++){
+            //agrego los registros a mi lista
+            items.push({
+              annotation_id: res.rows.item(i).annotation_id,
+              user_id: res.rows.item(i).user_id,
+              entry_id: res.rows.item(i).entry_id,
+              status_id: res.rows.item(i).status_id,
+              annotation_title: res.rows.item(i).annotation_title,
+              annotation_content: res.rows.item(i).annotation_content,
               ban_date: res.rows.item(i).ban_date,
               reason: res.rows.item(i).reason
             })
@@ -392,6 +413,61 @@ export class ServicebdService {
     });
   }
 
+  public buscarPassword(email:string) {
+    return this.database.executeSql('SELECT * FROM user WHERE email = ?' ,[email])
+    .then(res => {
+      if(res.rows.length > 0) {
+        let data: User = {
+          user_id: res.rows.item(0).user_id,
+          role_id: res.rows.item(0).role_id,
+          username: res.rows.item(0).username,
+          email: res.rows.item(0).email,
+          password: res.rows.item(0).password,
+          profile_picture: res.rows.item(0).profile_picture,
+          register_date: res.rows.item(0).register_date
+        };
+        this.userBuscado.next(data); 
+      }      
+    })
+    .catch(error => {
+      this.presentAlert('No user found', JSON.stringify(error));
+    });
+  }
+
+
+  public usernameUnico(username:string){
+    return this.database.executeSql('SELECT username FROM user WHERE username = ?' ,[username])
+    .then(res => {
+      if(res.rows.length > 0) {
+        return false;
+      }
+      else {
+        return true;
+      }
+    })
+    .catch(error => {
+      this.presentAlert('Error at Counting Usernames', JSON.stringify(error));
+    });
+  }
+
+  public emailUnico(email:string){
+    return this.database.executeSql('SELECT email FROM user WHERE email = ?' ,[email])
+    .then(res => {
+      if(res.rows.length > 0) {
+        return false;
+      }
+      else {
+        return true;
+      }
+    })
+    .catch(error => {
+      this.presentAlert('Error at Counting email', JSON.stringify(error));
+      
+    });
+  }
+
+
+
   public actualizarUserLocal(id:number) {
     return this.database.executeSql('SELECT * FROM user WHERE user_id = ?' ,[id])
     .then(res => {
@@ -413,7 +489,24 @@ export class ServicebdService {
     });
   }
 
+  countEntries(user_id:number){
+    return this.database.executeSql('SELECT entry_id FROM entry WHERE user_id = ? AND status_id = 1', [user_id]).then(res=>{
+       
+      return res.rows.length as number;
 
+    })
+  }
+
+  countAnnotations(user_id:number){
+    return this.database.executeSql('SELECT annotation_id FROM annotation WHERE user_id = ? AND status_id = 1', [user_id]).then(res=>{
+       
+      return res.rows.length as number;
+      
+    })
+  }
+  
+
+  /* 
   //DELETE
   eliminarUser(id:number){
     return this.database.executeSql('DELETE FROM user WHERE user_id = ?',[id]).then(res=>{
@@ -441,11 +534,41 @@ export class ServicebdService {
       this.presentAlert('Eliminar', 'Error: ' + JSON.stringify(e));
     })
   }
+  */
+
+  //DEACTIVATE
+  desactivarUser(id:number){
+    return this.database.executeSql('UPDATE user SET role_id = 0 WHERE user_id = ?',[id]).then(res=>{
+      this.presentAlert("Deactivation","User Deactivated");
+      this.seleccionarUser();
+    }).catch(e=>{
+      this.presentAlert('User Deactivation Error', 'Error: ' + JSON.stringify(e));
+    })
+  }
+
+
+  desactivarEntry(id:number){
+    return this.database.executeSql('UPDATE entry SET status_id = 0 WHERE entry_id = ?',[id]).then(res=>{
+      this.presentAlert("Deactivation","Entry Deactivated");
+      this.seleccionarEntry();
+    }).catch(e=>{
+      this.presentAlert('Entry Deactivation Error', 'Error: ' + JSON.stringify(e));
+    })
+  }
+
+  desactivarAnotation(id:number, entry_id:number){
+    return this.database.executeSql('UPDATE annotation SET status_id = 0 WHERE annotation_id = ?',[id]).then(res=>{
+      this.presentAlert("Deactivation","Annotation Deactivated");
+      this.seleccionarAnnotationSpecific(entry_id);
+    }).catch(e=>{
+      this.presentAlert('Annotation Deactivation Error', 'Error: ' + JSON.stringify(e));
+    })
+  }
+
 
   
   // MODIFICAR
   modificarUserUsername(id:string, username:string){
-    this.presentAlert("service","ID: " + id);
     return this.database.executeSql('UPDATE user SET username = ? WHERE user_id = ?',[username,id]).then(res=>{
       this.presentAlert("Modificado","User username Modified");
       this.seleccionarUser();
@@ -456,7 +579,6 @@ export class ServicebdService {
   }
  
   modificarUserImage(id:string, profile_picture:any){
-    this.presentAlert("service","ID: " + id);
     return this.database.executeSql('UPDATE user SET profile_picture = ? WHERE user_id = ?',[profile_picture,id]).then(res=>{
       this.presentAlert("Modificado","User profile picture Modified");
       this.seleccionarUser();
@@ -465,10 +587,9 @@ export class ServicebdService {
     })
   }
 
-  modificarUserRole(id:string){
-    this.presentAlert("service","ID: " + id);
+  modificarUserRole(id:number){
     return this.database.executeSql('UPDATE user SET role_id = 2 WHERE user_id = ?',[id]).then(res=>{
-      this.presentAlert("Modificado","User profile picture Modified");
+      this.presentAlert("Modified","User  Upgraded to Moderator");
       this.seleccionarUser();
     }).catch(e=>{
       this.presentAlert('Modificar', 'Error: ' + JSON.stringify(e));
@@ -489,7 +610,6 @@ export class ServicebdService {
   insertarEntry(user_id:number,entry_title:string, entry_content:string, briefing:string, image:any, sources:string) {
     return this.database.executeSql('INSERT INTO entry(user_id,status_id, entry_title, entry_content, briefing, image, sources, creation_date) VALUES (?,1,?,?,?,?,?,Date("now"))',[user_id, entry_title, entry_content, briefing, image, sources]).then(res=>{
       this.presentAlert("Insertar","Entry Registered");
-      this.presentAlert(entry_title, briefing);
       this.seleccionarEntry();
     }).catch(e=>{
       this.presentAlert('Insertar entrada', 'Error: ' + JSON.stringify(e));
@@ -499,7 +619,7 @@ export class ServicebdService {
   insertarAnnotation(entry_id:number, user_id:number, annotation_title:string, annotation_content:string  ){
     return this.database.executeSql('INSERT INTO annotation(entry_id, user_id, status_id ,annotation_title, annotation_content) VALUES (?,?,1,?,?)',[entry_id, user_id, annotation_title, annotation_content]).then(res=>{
       this.presentAlert("Insertar","annotation Registered");
-      this.seleccionarEntry();
+      this.seleccionarAnnotationSpecific(entry_id);
     }).catch(e=>{
       this.presentAlert('Insertar anotacion', 'Error: ' + JSON.stringify(e));
     })

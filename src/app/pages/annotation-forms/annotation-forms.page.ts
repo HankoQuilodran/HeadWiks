@@ -64,8 +64,6 @@ export class AnnotationFormsPage implements OnInit {
   }
 
   async insertarAnotacion(){
-    //creamos variable de contexto
-    
     await this.db.insertarAnnotation(this.regEntryId, this.regUserId, this.title, this.content);
     this.router.navigate(['/entries']);
   }
